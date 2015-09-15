@@ -1,0 +1,225 @@
+/*
+    Created on : 09 07 2015, 15:12:58
+    Author     : Alexandre
+*/
+
+.root {
+    //instance color:
+    -light-black: rgb(74, 75, 78);
+    -dark-highlight: rgb(87, 89, 92);
+    -dark-black: rgb(39, 40, 40);
+    -darkest-black: rgb(5, 5, 5);
+    -mid-gray: rgb(216, 222, 227);
+
+    -fx-spacing: 10;
+    -fx-background-color: -mid-gray;
+    -fx-padding: 5;
+}
+
+/***            Button           ***/
+#background {
+    -fx-background-color: -mid-gray;
+}
+
+.tool-bar {
+    -fx-base: -dark-black;
+    -fx-font-size: 12pt;
+    -fx-background-color:
+        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
+        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: .9em 0.416667em .9em 0.416667em;
+    -fx-effect: dropshadow(two-pass-box,black,5,.2,0,0);
+}
+
+.tool-bar .spacer {
+    -fx-padding: 0 2em 0 0;
+}
+
+.segmented-button-bar .button {
+    -fx-background-color:
+        -darkest-black,
+        -dark-highlight,
+        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+    -fx-background-insets: 0, 1 1 1 0, 2 1 1 1;
+    -fx-background-radius: 0;
+    -fx-padding: 0.4em 1.833333em 0.4em 1.833333em;
+}
+
+.segmented-button-bar .button.first {
+    -fx-background-insets: 0, 1, 2 1 1 1;
+    -fx-background-radius: 3 0 0 3, 2 0 0 2, 2 0 0 2;
+}
+
+.segmented-button-bar .button.last {
+    -fx-background-insets: 0, 1 1 1 0, 2 1 1 1;
+    -fx-background-radius: 0 3 3 0, 0 2 2 0, 0 2 2 0;
+}
+
+.segmented-button-bar .button:hover {
+    -fx-background-color:
+        -darkest-black,
+        rgb(55, 57, 58),
+        linear-gradient(to top, -light-black 2%, -dark-black 98%);
+}
+
+.segmented-button-bar .button:pressed {
+    -fx-background-color:
+        -dark-highlight,
+        rgb(55, 57, 58),
+        linear-gradient(to top, -light-black 2%, -dark-black 98%);
+}
+
+#toolBarButton{
+    -fx-padding:5px;
+}
+
+/***            scrollPane           ***/
+
+#scrollPaneLabel{
+    -fx-background: -dark-highlight;
+    -fx-border-width: 2px;
+    -fx-border-color:
+        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
+        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+}
+
+#scrollPaneLabel .scroll-bar:horizontal .track,
+#scrollPaneLabel .scroll-bar:vertical .track{
+    -fx-background-color:-dark-highlight;
+    -fx-border-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-border-radius:2em;
+}
+
+#scrollPaneLabel .scroll-bar:horizontal .increment-button ,
+#scrollPaneLabel .scroll-bar:horizontal .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding:0 0 10 0;
+}
+
+#scrollPaneLabel .scroll-bar:vertical .increment-button ,
+#scrollPaneLabel .scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding:0 10 0 0;
+}
+
+#scrollPaneLabel .scrollPaneLabel .scroll-bar .increment-arrow,
+#scrollPaneLabel .scrollPaneLabel .scroll-bar .decrement-arrow,
+{
+    -fx-padding:0;
+}
+
+#scrollPaneLabel .scroll-bar:horizontal .thumb,
+#scrollPaneLabel .scroll-bar:vertical .thumb {
+    -fx-background-color:
+        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
+        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+}
+
+/***            treeTableView           ***/
+.tree-table-view .column-header .label {
+    -fx-background-color:
+        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
+        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+        -fx-font-size: 12pt;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(two-pass-box,black,5,.2,0,0);
+}
+
+.tree-table-view: focused  {
+     -fx-background-color:
+             linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
+             linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+     -fx-effect: dropshadow(two-pass-box,black,5,.2,0,0);
+}
+
+.tree-table-view {
+    -fx-border-color:
+             linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
+             linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+    -fx-effect: dropshadow(two-pass-box,black,5,.2,0,0);
+    -fx-border-width: 2px;
+}
+
+.tree-table-row-cell {
+    -fx-background-color: -fx-table-cell-border-color, -fx-control-inner-background;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+    -fx-text-fill: -fx-text-inner-color;
+}
+
+.tree-table-row-cell:selected {
+    -fx-background-color: linear-gradient(to bottom, -light-black 2%, -dark-highlight 98%);
+    -fx-background-insets: 0, 1, 2;
+}
+
+.tree-table-row-cell:odd {
+    -fx-background-color: -fx-table-cell-border-color, derive(-fx-control-inner-background,-5%);
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.tree-table-row-cell:selected:odd {
+    -fx-background-color: linear-gradient(to bottom, -light-black 2%, -dark-highlight 98%);
+    -fx-background-insets: 0, 1, 2;
+}
+.tree-cell > .tree-disclosure-node,
+.tree-table-row-cell > .tree-disclosure-node {
+    -fx-padding: 4 6 4 8;
+    -fx-background-color: transparent;
+}
+.tree-cell > .tree-disclosure-node > .arrow,
+.tree-table-row-cell > .tree-disclosure-node > .arrow {
+    -fx-background-color: -fx-text-background-color;
+    -fx-padding: 0.333333em 0.229em 0.333333em 0.229em; /* 4 */
+    -fx-shape: "M 0 -3.5 L 4 0 L 0 3.5 z";
+}
+.tree-cell:expanded > .tree-disclosure-node > .arrow,
+.tree-table-row-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-rotate: 90;
+}
+
+/***            progressBar           ***/
+.progress-bar {
+    -fx-accent: -dark-black;    //color of progressBar
+    -fx-indeterminate-bar-length: 60;
+    -fx-indeterminate-bar-escape: true;
+    -fx-indeterminate-bar-flip: true;
+    -fx-indeterminate-bar-animation-time: 2;
+}
+.progress-bar > .bar {
+    -fx-background-color: linear-gradient(to bottom, derive(-fx-accent, -7%), derive(-fx-accent, 0%), derive(-fx-accent, -3%), derive(-fx-accent, -9%) );
+    -fx-background-insets: 3 3 4 3;
+    -fx-background-radius: 2;
+    -fx-padding: 0.75em;
+}
+.progress-bar:indeterminate > .bar {
+    -fx-background-color: linear-gradient(to left, transparent, -fx-accent);
+}
+.progress-bar > .track {
+      -fx-background-color:
+          -fx-shadow-highlight-color,
+          linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
+          linear-gradient(to bottom,
+            derive(-fx-control-inner-background, -7%),
+            derive(-fx-control-inner-background, 0%),
+            derive(-fx-control-inner-background, -3%),
+            derive(-fx-control-inner-background, -9%)
+          );
+    -fx-background-insets: 0, 0 0 1 0, 1 1 2 1;
+    -fx-background-radius: 4, 3, 2;
+}
+
+#AppLoad{
+    -fx-border-color:
+        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
+        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+     -fx-border-width: 2px;
+     -fx-border-insets: 0px, 1px
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane"
+            xmlns="http://javafx.com/javafx/8" fx:controller="View.Tree.TreeTableDisplayView" styleClass="background"
+            fx:id="AppTree">
+    <children>
+        <VBox AnchorPane.topAnchor="5" AnchorPane.rightAnchor="10" AnchorPane.leftAnchor="10">
+            <BorderPane id="background" xmlns:fx="http://javafx.com/fxml" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+                <top>
+                    <ToolBar>
+                        <items>
+                            <Region styleClass="spacer" />
+                            <HBox styleClass="segmented-button-bar">
+                                <Button fx:id="treeSaveButton" alignment="CENTER_LEFT" text="Save!" onAction="#buttonHandleActionSaveTableTree"/>
+                                <Button fx:id="treeReInitButton" alignment="CENTER_LEFT" text="ReInit" onAction="#buttonHandleActionReInit"/>
+                                <Button fx:id="treeButtonPath" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#handleButtonTreePath" text="Path Ref"/>
+                                <Label alignment="CENTER_LEFT" text=" "></Label>
+                                <Label alignment="CENTER_LEFT" fx:id="labelTreeTable" text="####"></Label>
+                            </HBox>
+                        </items>
+                    </ToolBar>
+                </top>
+            </BorderPane>
+            <Label text="  "></Label>
+            <HBox  AnchorPane.rightAnchor="10" AnchorPane.leftAnchor="10">
+                <Pane HBox.hgrow="ALWAYS"></Pane>
+                <TreeTableView fx:id="treeTableAff" VBox.vgrow="ALWAYS">
+                </TreeTableView>
+                <Pane HBox.hgrow="ALWAYS"></Pane>
+                <Label text="  "></Label>
+                <TreeTableView fx:id="treeTableData" VBox.vgrow="ALWAYS">
+                </TreeTableView>
+                <Pane HBox.hgrow="ALWAYS"></Pane>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

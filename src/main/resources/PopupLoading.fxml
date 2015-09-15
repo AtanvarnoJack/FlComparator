@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" prefHeight="60" prefWidth="300"
+            xmlns="http://javafx.com/javafx/8" fx:controller="View.Popup.LoadingPopupView" styleClass="background"
+            fx:id="AppLoadPopup">
+    <children>
+        <VBox fx:id="AppLoad" AnchorPane.leftAnchor="5" AnchorPane.topAnchor="5" AnchorPane.rightAnchor="5" AnchorPane.bottomAnchor="5">
+            <HBox alignment="CENTER">
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Label text="Loading..."/>
+                <Pane HBox.hgrow="ALWAYS"/>
+            </HBox>
+            <HBox alignment="CENTER">
+                <Pane HBox.hgrow="ALWAYS"/>
+                <ProgressBar fx:id="progressBarLoadingPopup" prefWidth="500"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

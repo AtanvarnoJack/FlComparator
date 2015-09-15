@@ -16,9 +16,8 @@ Permet de choisir les colonnes du FL à comparer.
 	- L'arbre de droite affiche la liste des champs à comparer. (Feuille: champs)
 		- Double cliquez sur un label pour le supprimé de la liste.
 
-A la premiére ouverture de "Settings" le programme va vous demander de choisir un FL de Référence. Ex: Thot\\:\ROC\Fichier_Liaison_V4\Fichier de Liaison Standard\Fichier de Liaison V4_15.xlsm
+A la premiére ouverture de "Settings" le programme va vous demander de choisir un FL de Référence.
 
 Open Repositories:
  Permet de choisir un répertoire pour lancer la comparaison des clients.
 Ce répertoire doit contenir la liste des répertoires client.
-(Ex: Thot\\:\ROC\Fichier_Liaison_V4\Clients_ROC).

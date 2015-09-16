@@ -14,9 +14,10 @@ public class StockAll {
     private final static String TAG = "Hostname";
     private final static String PRINCIPAL = "PRINCIPAL";
     public static String allRequestError = null;
+    public static File repositoryAllClient = null;
     public static File filePathFlRef = null;
     public static HashMap<String, List<String>> listChampCompare = null;
-
+    public static List<String> clientCheckedList = new ArrayList<>();
     /***
      * loadConstChamps
      * @return HashMap<String, List<String>>
@@ -114,5 +115,15 @@ public class StockAll {
         }
         listChampCompare.clear();
         listChampCompare = listChampCompareNew;
+    }
+
+    public List<String> loadClientList() {
+        List<String> clientList = new ArrayList<>();
+        for (File file : repositoryAllClient.listFiles()) {
+            if (file.isDirectory()) {
+                clientList.add(file.getName());
+            }
+        }
+        return clientList;
     }
 }

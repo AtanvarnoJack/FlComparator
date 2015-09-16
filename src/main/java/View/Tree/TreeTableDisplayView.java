@@ -2,7 +2,7 @@ package View.Tree;
 
 import Analytics.StockAll;
 import View.Dialogs.Dialogs;
-import View.ExcludeView;
+import View.Exclude.ExcludeView;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

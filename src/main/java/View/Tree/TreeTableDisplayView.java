@@ -2,21 +2,19 @@ package View.Tree;
 
 import Analytics.StockAll;
 import View.Dialogs.Dialogs;
+import View.ExcludeView;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.controlsfx.control.CheckComboBox;
 import org.tmatesoft.sqljet.core.SqlJetException;
 
 import java.io.File;
@@ -177,6 +175,16 @@ public class TreeTableDisplayView extends Application implements Initializable {
             refreshDataTableView(treeTable);
         } catch (SqlJetException e) {
             dialogs.dialogsBDDError();
+        }
+    }
+
+    public void buttonHandleActionExclude(ActionEvent actionEvent) {
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        ExcludeView excludeView = new ExcludeView();
+        try {
+            excludeView.start(stage);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

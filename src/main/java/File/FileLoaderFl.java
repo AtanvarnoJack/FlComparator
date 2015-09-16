@@ -42,7 +42,6 @@ public class FileLoaderFl {
      * @return List<File>
      * @throws FileNotFoundException
      */
-    //TODO getAllClientFileList without list of client
     public List<File> getClientFileList(File pathClients, List<String> excludeClientNameList) throws FileNotFoundException {
         List<File> listClientFile = new ArrayList<File>();
         File[] listClientFileArray = pathClients.listFiles();

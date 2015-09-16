@@ -14,8 +14,9 @@
                         <items>
                             <Region styleClass="spacer" />
                             <HBox styleClass="segmented-button-bar">
-                                <Button fx:id="treeSaveButton" alignment="CENTER_LEFT" text="Save!" onAction="#buttonHandleActionSaveTableTree"/>
+                                <Button fx:id="treeSaveButton" alignment="CENTER_LEFT" text="Save" onAction="#buttonHandleActionSaveTableTree"/>
                                 <Button fx:id="treeReInitButton" alignment="CENTER_LEFT" text="ReInit" onAction="#buttonHandleActionReInit"/>
+                                <Button fx:id="treeExcludeButton" alignment="CENTER_LEFT" text="Exclude" onAction="#buttonHandleActionExclude"/>
                                 <Button fx:id="treeButtonPath" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#handleButtonTreePath" text="Path Ref"/>
                                 <Label alignment="CENTER_LEFT" text=" "></Label>
                                 <Label alignment="CENTER_LEFT" fx:id="labelTreeTable" text="####"></Label>

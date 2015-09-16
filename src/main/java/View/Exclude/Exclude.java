@@ -38,55 +38,47 @@ public class Exclude {
         ListView<String> list = new ListView<>();
         try {
             GestionBDDCheckedClient gestionBDDCheckedClient = new GestionBDDCheckedClient();
-            if (StockAll.clientCheckedList == null){
+            if (StockAll.clientCheckedList.size() == 0){
+                List<String> listClientBdd = new ArrayList<>();
+                try {
+                    listClientBdd = gestionBDDCheckedClient.getAllData();
+                }catch (SqlJetException e){}
+
                 StockAll stockAll = new StockAll();
-                StockAll.clientCheckedList = stockAll.loadClientList();
-                gestionBDDCheckedClient.initBase();
-            }else {
-                StockAll.clientCheckedList = gestionBDDCheckedClient.getAllData();
+                if (listClientBdd.size() == 0){
+                    StockAll.clientCheckedList = stockAll.loadClientList();
+                    gestionBDDCheckedClient.initBase();
+                }else {
+                    StockAll.clientCheckedList = listClientBdd;
+                }
             }
         } catch (SqlJetException e) {
             Dialogs dialogs = new Dialogs();
             dialogs.dialogsBDDError();
+        } catch (FileNotFoundException e) {
+            Dialogs dialogs = new Dialogs();
+            dialogs.dialogsNoRepositoriesWithFlClientFound();
         }
 
         ObservableList<String> data = FXCollections.observableArrayList(StockAll.clientCheckedList);
         VBox vBox = new VBox();
         HBox hBox = new HBox();
-        HBox pathBox = new HBox();
-        Scene scene = new Scene(vBox, 200, 200);
+        Scene scene = new Scene(vBox, 300, 300);
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.setTitle("ListViewSample");
 
-        Button changePathButton = new Button("Path: ");
-        Label labelPathClient = new Label("####");
-
-        changePathButton.setOnAction(e -> {
-            try {
-                changePathClientList();
-                labelPathClient.setText(StockAll.repositoryAllClient.getName());
-            } catch (FileNotFoundException e1) {
-                Dialogs dialogs = new Dialogs();
-                dialogs.dialogsNoRepositoriesFound();
-            }
-        });
-
-        pathBox.setAlignment(Pos.CENTER_LEFT);
-        pathBox.getChildren().addAll(changePathButton, labelPathClient);
-
         Label label = new Label("Client Checked:");
         Button saveButton = new Button("Save");
         Button closeButton = new Button("Close");
 
-        saveButton.setOnAction(e -> save());
+        saveButton.setOnAction(e -> save(stage));
         closeButton.setOnAction(e -> close(stage));
 
         hBox.setAlignment(Pos.CENTER_RIGHT);
         hBox.getChildren().addAll(saveButton, closeButton);
-        vBox.getChildren().addAll(pathBox, label, list,hBox);
-        VBox.setMargin(pathBox, new Insets(5, 5, 1, 5));
+        vBox.getChildren().addAll(label, list,hBox);
         VBox.setMargin(label, new Insets(1, 5, 1, 5));
         VBox.setMargin(list, new Insets(1, 5, 1, 5));
         VBox.setMargin(hBox, new Insets(1, 5, 5, 5));
@@ -104,13 +96,7 @@ public class Exclude {
         stage.showAndWait();
     }
 
-    private void changePathClientList() throws FileNotFoundException {
-        FileChooserFl fileChooserFl = new FileChooserFl();
-        StockAll.repositoryAllClient = fileChooserFl.getRepositoriesClients();
-
-    }
-
-    private void save(){
+    private void save(Stage stage){
         GestionBDDCheckedClient gestionBDDCheckedClient = new GestionBDDCheckedClient();
         try {
             gestionBDDCheckedClient.initBase();
@@ -118,6 +104,7 @@ public class Exclude {
             Dialogs dialogs = new Dialogs();
             dialogs.dialogsBDDError();
         }
+        close(stage);
     }
 
     private void close(Stage appListView) {
@@ -138,7 +125,7 @@ public class Exclude {
         @Override
         public void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
-            Rectangle rect = new Rectangle(100, 20);
+            Rectangle rect = new Rectangle(250, 20);
             if (item != null) {
                 boolean clientChecked = false;
 

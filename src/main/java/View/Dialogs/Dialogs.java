@@ -63,4 +63,14 @@ public class Dialogs {
                 .styleClass("/texture.css")
                 .showWarning();
     }
+
+    public void dialogsSelectARepository() {
+        org.controlsfx.dialog.Dialogs.create()
+                .owner(null)
+                .title("Select Repository")
+                .masthead("Please select Repository Clients_ROC")
+                .message("Please Select Repository: \"Clients_ROC\" in ROC repository ")
+                .styleClass("/texture.css")
+                .showInformation();
+    }
 }

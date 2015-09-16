@@ -2,6 +2,7 @@ package View.Home;
 
 import Analytics.StockAll;
 import BDD.Champs.GestionBDDParams;
+import BDD.CheckedClient.GestionBDDCheckedClient;
 import View.Dialogs.Dialogs;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -13,7 +14,10 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.tmatesoft.sqljet.core.SqlJetException;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,6 +62,38 @@ public class Home {
     public void initStage(){
         Dialogs dialogs = new Dialogs();
         StockAll stockAll = new StockAll();
+        loadChampCompare(dialogs, stockAll);
+        loadClientChecked(dialogs, stockAll);
+    }
+
+    private void loadClientChecked(Dialogs dialogs, StockAll stockAll) {
+        GestionBDDCheckedClient gestionBDDCheckedClient = new GestionBDDCheckedClient();
+        if (StockAll.clientCheckedList.size() == 0){
+            List<String> clientListChecked;
+            try {
+                clientListChecked = gestionBDDCheckedClient.getAllData();
+                if (clientListChecked.size() == 0){
+                    StockAll.clientCheckedList = stockAll.loadClientList();
+                    gestionBDDCheckedClient.initBase();
+                }else {
+                    StockAll.clientCheckedList = clientListChecked;
+                }
+            } catch (SqlJetException e) {
+                try {
+                    StockAll.clientCheckedList = stockAll.loadClientList();
+                    gestionBDDCheckedClient.initBase();
+                } catch (SqlJetException e1) {
+                    dialogs.dialogsBDDError();
+                } catch (FileNotFoundException e1) {
+                    dialogs.dialogsNoRepositoriesWithFlClientFound();
+                }
+            } catch (FileNotFoundException e) {
+                dialogs.dialogsNoRepositoriesWithFlClientFound();
+            }
+        }
+    }
+
+    private void loadChampCompare(Dialogs dialogs, StockAll stockAll) {
         GestionBDDParams gestionBDDParams = new GestionBDDParams();
         if(StockAll.listChampCompare == null){
             HashMap<String, List<String>> recordsFound = null;

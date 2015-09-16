@@ -1,9 +1,11 @@
 package BDD.CheckedClient;
 
 import Analytics.StockAll;
+import View.Dialogs.Dialogs;
 import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.table.SqlJetDb;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +32,12 @@ public class GestionBDDCheckedClient {
             }
         }else {
             StockAll stockAll = new StockAll();
-            StockAll.clientCheckedList = stockAll.loadClientList();
+            try {
+                StockAll.clientCheckedList = stockAll.loadClientList();
+            } catch (FileNotFoundException e) {
+                Dialogs dialogs = new Dialogs();
+                dialogs.dialogsNoRepositoriesWithFlClientFound();
+            }
             for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
                 openHelperCheckedClient.addRecordBase(OpenHelperCheckedClient.getSqlJetDb(), i, StockAll.clientCheckedList.get(i));
             }

@@ -1,10 +1,14 @@
 package Analytics;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+
+import File.FileChooserFl;
+import View.Dialogs.Dialogs;
 
 /**
  * Created by alco on 05/08/2015.
@@ -18,6 +22,7 @@ public class StockAll {
     public static File filePathFlRef = null;
     public static HashMap<String, List<String>> listChampCompare = null;
     public static List<String> clientCheckedList = new ArrayList<>();
+
     /***
      * loadConstChamps
      * @return HashMap<String, List<String>>
@@ -117,8 +122,14 @@ public class StockAll {
         listChampCompare = listChampCompareNew;
     }
 
-    public List<String> loadClientList() {
+    public List<String> loadClientList() throws FileNotFoundException {
         List<String> clientList = new ArrayList<>();
+        FileChooserFl fileChooserFl = new FileChooserFl();
+        if (repositoryAllClient == null){
+            Dialogs dialogs = new Dialogs();
+            dialogs.dialogsSelectARepository();
+            repositoryAllClient = fileChooserFl.getRepositoriesClients();
+        }
         for (File file : repositoryAllClient.listFiles()) {
             if (file.isDirectory()) {
                 clientList.add(file.getName());

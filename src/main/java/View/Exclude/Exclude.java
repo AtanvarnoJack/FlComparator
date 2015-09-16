@@ -7,18 +7,25 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by alco on 16/09/2015.
  */
 public class Exclude {
-    final
+    private  List<String> clientCheckedList = new ArrayList<>();
 
     protected void start() {
         ListView<String> list = new ListView<>();
@@ -49,6 +56,8 @@ public class Exclude {
         label.setLayoutX(10);
         label.setLayoutY(115);
         list.setItems(data);
+        clientCheckedList.add("Blue"); //TODO get list by a base
+        list.setCellFactory(list1 -> new ColorRectCell(clientCheckedList));
 
         list.getSelectionModel().selectedItemProperty().addListener(
                 (ov, old_val, new_val) -> {
@@ -64,5 +73,44 @@ public class Exclude {
     private void close(Stage appListView) {
         Stage stage = (Stage) appListView.getScene().getWindow();
         stage.close();
+    }
+
+    /***
+     * ColorRectCell cellFactory for cell color
+     */
+    static class ColorRectCell extends ListCell<String> {
+        private  List<String> clientCheckedList = new ArrayList<>();
+
+        ColorRectCell(List<String> clientCheckedList){
+            this.clientCheckedList = clientCheckedList;
+        }
+
+        @Override
+        public void updateItem(String item, boolean empty) {
+            super.updateItem(item, empty);
+            Rectangle rect = new Rectangle(100, 20);
+            if (item != null) {
+                boolean clientCheked = false;
+
+                for (String client : clientCheckedList) {
+                    if(client.equals(item)){
+                        clientCheked = true;
+                    }
+                }
+
+                if(clientCheked){
+                    rect.setFill(Color.rgb(0,255,0,0.2));
+
+                }else {
+                    rect.setFill(Color.rgb(255,0,0,0.2));
+                }
+
+                Label label = new Label(item);
+                StackPane stack = new StackPane();
+                stack.getChildren().addAll(rect, label);
+
+                setGraphic(stack);
+            }
+        }
     }
 }

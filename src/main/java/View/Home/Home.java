@@ -1,7 +1,7 @@
 package View.Home;
 
 import Analytics.StockAll;
-import BDD.Champs.GestionBDParams;
+import BDD.Champs.GestionBDDParams;
 import View.Dialogs.Dialogs;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -58,20 +58,20 @@ public class Home {
     public void initStage(){
         Dialogs dialogs = new Dialogs();
         StockAll stockAll = new StockAll();
-        GestionBDParams gestionBDParams = new GestionBDParams();
+        GestionBDDParams gestionBDDParams = new GestionBDDParams();
         if(StockAll.listChampCompare == null){
             HashMap<String, List<String>> recordsFound = null;
             try {
-                recordsFound = gestionBDParams.getAllData();
+                recordsFound = gestionBDDParams.getAllData();
                 if (recordsFound.size() == 0){
                     StockAll.listChampCompare = stockAll.loadConstChamps();
-                    gestionBDParams.initBase();
+                    gestionBDDParams.initBase();
                 }else {
                     StockAll.listChampCompare = recordsFound;
                 }
             } catch (SqlJetException e) {
                 try {
-                    gestionBDParams.initBase();
+                    gestionBDDParams.initBase();
                 } catch (SqlJetException e1) {
                     dialogs.dialogsBDDError();
                 }

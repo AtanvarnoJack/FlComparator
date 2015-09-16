@@ -1,7 +1,7 @@
 package View.Tree;
 
 import Analytics.StockAll;
-import BDD.Champs.GestionBDParams;
+import BDD.Champs.GestionBDDParams;
 import BDD.Path.OpenHelperPath;
 import Excel.ApachePoi.ExcelReader;
 import File.FileChooserFl;
@@ -20,7 +20,6 @@ import javafx.stage.Stage;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.tmatesoft.sqljet.core.SqlJetException;
-import org.tmatesoft.sqljet.core.table.SqlJetDb;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -212,8 +211,8 @@ public class TreeTable {
      * @throws SqlJetException
      */
     protected void save() throws SqlJetException {
-        GestionBDParams gestionBDParams =new GestionBDParams();
-        gestionBDParams.initBase();
+        GestionBDDParams gestionBDDParams =new GestionBDDParams();
+        gestionBDDParams.initBase();
     }
 
     /**
@@ -221,8 +220,8 @@ public class TreeTable {
      * @throws SqlJetException
      */
     protected void reInit() throws SqlJetException {
-        GestionBDParams gestionBDParams = new GestionBDParams();
+        GestionBDDParams gestionBDDParams = new GestionBDDParams();
         StockAll.listChampCompare = null;
-        gestionBDParams.initBase();
+        gestionBDDParams.initBase();
     }
 }

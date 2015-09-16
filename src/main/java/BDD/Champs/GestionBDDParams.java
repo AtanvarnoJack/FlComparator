@@ -13,7 +13,7 @@ import java.util.Map.Entry;
  * Created by alco on 07/08/2015.
  * GestionBDParams contain method for manage OpenHelper BDD Params
  */
-public class GestionBDParams {
+public class GestionBDDParams {
 
     /**
      * initBase

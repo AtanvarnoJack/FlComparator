@@ -1,12 +1,8 @@
 import Analytics.StockAll;
-import BDD.Champs.GestionBDParams;
-import File.FileLoaderFl;
+import BDD.Champs.GestionBDDParams;
 import org.testng.annotations.Test;
 import org.tmatesoft.sqljet.core.SqlJetException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,13 +15,13 @@ public class testBase {
 
     @Test
     public void testBase(){
-        GestionBDParams gestionBDParams = new GestionBDParams();
+        GestionBDDParams gestionBDDParams = new GestionBDDParams();
         StockAll stockAll = new StockAll();
         StockAll.listChampCompare = stockAll.loadConstChamps();
         try {
-            gestionBDParams.initBase();
-            HashMap<String, List<String>> found = gestionBDParams.getAllData();
-            List<String> found2 = gestionBDParams.getDataByKey("PRINCIPAL");
+            gestionBDDParams.initBase();
+            HashMap<String, List<String>> found = gestionBDDParams.getAllData();
+            List<String> found2 = gestionBDDParams.getDataByKey("PRINCIPAL");
             System.out.println();
         } catch (SqlJetException e) {
             e.printStackTrace();

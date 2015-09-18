@@ -96,7 +96,9 @@ public class Exclude {
                         }
                     }
                     Collections.sort(StockAll.clientCheckedList);
-                    list.impl_updatePeer();
+                    Collections.sort(clientList);
+                    ObservableList<String> data = FXCollections.observableArrayList(clientList);
+                    list.setItems(data);
                 }
             }
         });

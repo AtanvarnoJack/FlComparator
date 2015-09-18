@@ -55,15 +55,18 @@ public class Exclude {
         stage.setTitle("ListViewSample");
 
         Label label = new Label("Client Checked:");
+        Button reInitButton = new Button("All Ok");
+        Label space = new Label("   ");
         Button saveButton = new Button("Save");
-        Label space = new Label("  ");
+        Label space1 = new Label("   ");
         Button closeButton = new Button("Close");
 
+        reInitButton.setOnAction(e -> reInit(list));
         saveButton.setOnAction(e -> save(stage));
         closeButton.setOnAction(e -> close(stage));
 
         hBox.setAlignment(Pos.CENTER_RIGHT);
-        hBox.getChildren().addAll(saveButton, space, closeButton);
+        hBox.getChildren().addAll(reInitButton, space, saveButton, space1, closeButton);
         vBox.getChildren().addAll(label, list,hBox);
         VBox.setMargin(label, new Insets(1, 5, 1, 5));
         VBox.setMargin(list, new Insets(1, 5, 1, 5));
@@ -110,6 +113,19 @@ public class Exclude {
         return stage;
     }
 
+    private void reInit(ListView<String> list) {
+        String[] clientSplit;
+        for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
+            clientSplit = StockAll.clientCheckedList.get(i).split(OpenHelperCheckedClient.getSeparator());
+            if (clientSplit[1].equals("no")){
+                clientSplit[1] = "yes";
+            }
+            StockAll.clientCheckedList.set(i,clientSplit[0] + OpenHelperCheckedClient.getSeparator() + clientSplit[1]);
+            Collections.sort(StockAll.clientCheckedList);
+            ObservableList<String> data = FXCollections.observableArrayList(StockAll.clientCheckedList);
+            list.setItems(data);
+        }
+    }
 
 
     private void init() {

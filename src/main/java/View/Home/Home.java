@@ -83,7 +83,7 @@ public class Home {
                     StockAll.clientCheckedList = stockAll.loadClientList();
                     gestionBDDCheckedClient.initBase();
                 } catch (SqlJetException e1) {
-                    dialogs.dialogsBDDError();
+//                    dialogs.dialogsBDDError();
                 } catch (FileNotFoundException e1) {
                     dialogs.dialogsNoRepositoriesWithFlClientFound();
                 }

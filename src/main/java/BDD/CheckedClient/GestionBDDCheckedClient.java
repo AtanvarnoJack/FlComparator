@@ -28,7 +28,7 @@ public class GestionBDDCheckedClient {
             openHelperCheckedClient.createNewBase();
             openHelperCheckedClient.createTables(OpenHelperCheckedClient.getSqlJetDb());
             for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
-                openHelperCheckedClient.addRecordBase(OpenHelperCheckedClient.getSqlJetDb(), i, StockAll.clientCheckedList.get(i));
+                openHelperCheckedClient.addRecordBase(OpenHelperCheckedClient.getSqlJetDb(), i, StockAll.clientCheckedList.get(i), "yes");
             }
         }else {
             StockAll stockAll = new StockAll();
@@ -39,7 +39,7 @@ public class GestionBDDCheckedClient {
                 dialogs.dialogsNoRepositoriesWithFlClientFound();
             }
             for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
-                openHelperCheckedClient.addRecordBase(OpenHelperCheckedClient.getSqlJetDb(), i, StockAll.clientCheckedList.get(i));
+                openHelperCheckedClient.addRecordBase(OpenHelperCheckedClient.getSqlJetDb(), i, StockAll.clientCheckedList.get(i), "yes");
             }
         }
     }

@@ -14,11 +14,13 @@ import java.util.List;
  * Created by alco on 16/09/2015.
  */
 public class OpenHelperCheckedClient {
+    private final static String SEPARATOR = ":";
     private final static String DB_REPOSITORIES = "Settings/";
     private final static String DB_NAME = "ParamsBaseCheckedClient";
     private final static String TABLE_PARAMS = "params";
     private final static String TABLE_ROW_KEY = "key";
-    private static final String TABLE_ROW_CHAMPS = "champs";
+    private static final String TABLE_ROW_CHAMPS = "client";
+    private static final String TABLE_ROW_CHECKED = "checked";
     private final static String INDEX_CHAMPS = "index_champs";
 
     private static File dbFile;
@@ -61,8 +63,8 @@ public class OpenHelperCheckedClient {
     public void createTables (SqlJetDb db) throws SqlJetException {
         db.beginTransaction(SqlJetTransactionMode.WRITE);
         try {
-            db.createTable("CREATE TABLE "+TABLE_PARAMS+" ("+TABLE_ROW_KEY+" TEXT NOT NULL PRIMARY KEY, "+TABLE_ROW_CHAMPS+" TEXT NOT NULL)\n");
-            db.createIndex("CREATE INDEX " + INDEX_CHAMPS + " ON " + TABLE_PARAMS + "(" + TABLE_ROW_KEY + "," + TABLE_ROW_CHAMPS + ")\n");
+            db.createTable("CREATE TABLE "+TABLE_PARAMS+" ("+TABLE_ROW_KEY+" TEXT NOT NULL PRIMARY KEY, "+TABLE_ROW_CHAMPS+" TEXT NOT NULL, "+TABLE_ROW_CHECKED+" TEXT NOT NULL)\n");
+            db.createIndex("CREATE INDEX " + INDEX_CHAMPS + " ON " + TABLE_PARAMS + "(" + TABLE_ROW_KEY + "," + TABLE_ROW_CHAMPS + "," +TABLE_ROW_CHECKED+")\n");
         } finally {
             db.commit();
             db.close();
@@ -76,11 +78,11 @@ public class OpenHelperCheckedClient {
      * @param champs
      * @throws SqlJetException
      */
-    public void addRecordBase(SqlJetDb db, int key, String champs) throws SqlJetException {
+    public void addRecordBase(SqlJetDb db, int key, String champs, String checked) throws SqlJetException {
         db.beginTransaction(SqlJetTransactionMode.WRITE);
         try {
             ISqlJetTable table = db.getTable(TABLE_PARAMS);
-            table.insert(key, champs);
+            table.insert(key, champs, checked);
         } finally {
             db.commit();
             db.close();
@@ -140,6 +142,7 @@ public class OpenHelperCheckedClient {
                 do {
                     if (cursor.getString(TABLE_ROW_KEY).equals(key)){
                         record = cursor.getString(TABLE_ROW_CHAMPS);
+                        record = record +SEPARATOR+cursor.getString(TABLE_ROW_CHECKED);
                     }
                 } while(cursor.next());
             }
@@ -160,7 +163,7 @@ public class OpenHelperCheckedClient {
         try {
             if (!cursor.eof()) {
                 do {
-                    allRecords.add(cursor.getString(TABLE_ROW_CHAMPS));
+                    allRecords.add(cursor.getString(TABLE_ROW_CHAMPS) + SEPARATOR + cursor.getString(TABLE_ROW_CHECKED));
                     java.util.Collections.sort(allRecords);
                 } while (cursor.next());
             }
@@ -168,5 +171,9 @@ public class OpenHelperCheckedClient {
             cursor.close();
         }
         return allRecords;
+    }
+
+    public static String getSeparator() {
+        return SEPARATOR;
     }
 }

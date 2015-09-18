@@ -223,11 +223,3 @@
      -fx-border-width: 2px;
      -fx-border-insets: 0px, 1px
 }
-
-#AppListView{
-    -fx-border-color:
-        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
-        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
-     -fx-border-width: 2px;
-     -fx-border-insets: 0px, 1px
-}

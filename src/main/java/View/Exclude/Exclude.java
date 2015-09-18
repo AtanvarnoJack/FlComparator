@@ -4,7 +4,6 @@ import Analytics.StockAll;
 import BDD.CheckedClient.GestionBDDCheckedClient;
 import BDD.CheckedClient.OpenHelperCheckedClient;
 import View.Dialogs.Dialogs;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -37,6 +36,9 @@ import java.util.List;
  */
 public class Exclude {
 
+    /***
+     * start method call onStart of ExcludeView
+     */
     protected void start(){
         ListView<String> list = new ListView<>();
         init();
@@ -44,41 +46,29 @@ public class Exclude {
         stage.showAndWait();
     }
 
+    /***
+     * getStage method return stage exclude complete
+     * @param list
+     * @return
+     */
     private Stage getStage(ListView<String> list) {
 
         VBox vBox = new VBox();
         HBox hBox = new HBox();
         Scene scene = new Scene(vBox, 300, 300);
         Stage stage = new Stage();
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setScene(scene);
-        stage.setTitle("ListViewSample");
+        setStyle(vBox, stage);
+        List<String> clientList = setItems(list, vBox, hBox, scene, stage);
+        setList(list, clientList);
+        return stage;
+    }
 
-        Label label = new Label("Client Checked:");
-        Button reInitButton = new Button("All Ok");
-        Label space = new Label("   ");
-        Button saveButton = new Button("Save");
-        Label space1 = new Label("   ");
-        Button closeButton = new Button("Close");
-
-        reInitButton.setOnAction(e -> reInit(list));
-        saveButton.setOnAction(e -> save(stage));
-        closeButton.setOnAction(e -> close(stage));
-
-        hBox.setAlignment(Pos.CENTER_RIGHT);
-        hBox.getChildren().addAll(reInitButton, space, saveButton, space1, closeButton);
-        vBox.getChildren().addAll(label, list,hBox);
-        VBox.setMargin(label, new Insets(1, 5, 1, 5));
-        VBox.setMargin(list, new Insets(1, 5, 1, 5));
-        VBox.setMargin(hBox, new Insets(1, 5, 5, 5));
-        VBox.setVgrow(list, Priority.ALWAYS);
-
-        label.setLayoutX(10);
-        label.setLayoutY(115);
-        List<String> clientList = StockAll.clientCheckedList;
-        Collections.sort(StockAll.clientCheckedList);
-        Collections.sort(clientList);
-
+    /***
+     * setList method for init listView Items and listView Listener.
+     * @param list
+     * @param clientList
+     */
+    private void setList(final ListView<String> list, final List<String> clientList) {
         ObservableList<String> data = FXCollections.observableArrayList(clientList);
         list.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -109,10 +99,67 @@ public class Exclude {
         list.setItems(data);
 
         list.setCellFactory(list1 -> new ColorRectCell(clientList));
-
-        return stage;
     }
 
+    /***
+     * setItems init all items on stage
+     * @param list
+     * @param vBox
+     * @param hBox
+     * @param scene
+     * @param stage
+     * @return
+     */
+    private List<String> setItems(ListView<String> list, VBox vBox, HBox hBox, Scene scene, Stage stage) {
+        stage.setScene(scene);
+        stage.setTitle("ListViewSample");
+        Label label = new Label("Client Checked:");
+        Button reInitButton = new Button("All Ok");
+        Label space = new Label("   ");
+        Button saveButton = new Button("Save");
+        Label space1 = new Label("   ");
+        Button closeButton = new Button("Close");
+
+        reInitButton.setOnAction(e -> reInit(list));
+        saveButton.setOnAction(e -> save(stage));
+        closeButton.setOnAction(e -> close(stage));
+
+        hBox.setAlignment(Pos.CENTER_RIGHT);
+        hBox.getChildren().addAll(reInitButton, space, saveButton, space1, closeButton);
+        vBox.getChildren().addAll(label, list,hBox);
+        VBox.setMargin(label, new Insets(1, 5, 1, 5));
+        VBox.setMargin(list, new Insets(1, 5, 1, 5));
+        VBox.setMargin(hBox, new Insets(1, 5, 5, 5));
+        VBox.setVgrow(list, Priority.ALWAYS);
+
+        label.setLayoutX(10);
+        label.setLayoutY(115);
+        List<String> clientList = StockAll.clientCheckedList;
+        Collections.sort(StockAll.clientCheckedList);
+        Collections.sort(clientList);
+        return clientList;
+    }
+
+    /***
+     * setStyle method for stage
+     * @param vBox
+     * @param stage
+     */
+    private void setStyle(VBox vBox, Stage stage) {
+        vBox.setStyle("-light-black: rgb(74, 75, 78);"+
+                "-dark-black: rgb(39, 40, 40);"+
+                "-fx-border-color:\n" +
+                "        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),\n" +
+                "        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);\n" +
+                "     -fx-border-width: 2px;\n" +
+                "     -fx-border-insets: 0px, 1px");
+        stage.initStyle(StageStyle.UNDECORATED);
+    }
+
+    /***
+     * reInit method for pass all client at YES
+     * @param list
+     */
     private void reInit(ListView<String> list) {
         String[] clientSplit;
         for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
@@ -127,7 +174,9 @@ public class Exclude {
         }
     }
 
-
+    /***
+     * init method for init BDD and StockAll Variable
+     */
     private void init() {
         try {
             GestionBDDCheckedClient gestionBDDCheckedClient = new GestionBDDCheckedClient();
@@ -154,6 +203,10 @@ public class Exclude {
         }
     }
 
+    /***
+     * save method for save BDD
+     * @param stage
+     */
     private void save(Stage stage){
         GestionBDDCheckedClient gestionBDDCheckedClient = new GestionBDDCheckedClient();
         try {
@@ -165,6 +218,10 @@ public class Exclude {
         close(stage);
     }
 
+    /***
+     * close method for close stage
+     * @param appListView
+     */
     private void close(Stage appListView) {
         Stage stage = (Stage) appListView.getScene().getWindow();
         stage.close();

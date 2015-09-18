@@ -24,11 +24,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Callback;
 import org.tmatesoft.sqljet.core.SqlJetException;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -73,6 +73,8 @@ public class Exclude {
         label.setLayoutX(10);
         label.setLayoutY(115);
         List<String> clientList = StockAll.clientCheckedList;
+        Collections.sort(StockAll.clientCheckedList);
+        Collections.sort(clientList);
 
         ObservableList<String> data = FXCollections.observableArrayList(clientList);
         list.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -93,15 +95,20 @@ public class Exclude {
                             StockAll.clientCheckedList.add(concatValueClient);
                         }
                     }
+                    Collections.sort(StockAll.clientCheckedList);
+                    list.impl_updatePeer();
                 }
             }
         });
+
         list.setItems(data);
 
         list.setCellFactory(list1 -> new ColorRectCell(clientList));
 
         return stage;
     }
+
+
 
     private void init() {
         try {

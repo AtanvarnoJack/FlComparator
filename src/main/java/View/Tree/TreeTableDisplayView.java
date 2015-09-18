@@ -40,6 +40,8 @@ public class TreeTableDisplayView extends Application implements Initializable {
     @FXML
     Button treeReInitButton;
     @FXML
+    Button treeExcludeButton;
+    @FXML
     Button treeButtonPath;
 
     @Override
@@ -68,9 +70,11 @@ public class TreeTableDisplayView extends Application implements Initializable {
         }
         Image saveImg = new Image(getClass().getResourceAsStream("/img/saveDeg.png"));
         Image reIntiImg = new Image(getClass().getResourceAsStream("/img/undoArrowDeg.png"));
+        Image excludeImg = new Image(getClass().getResourceAsStream("/img/exclude.png"));
         Image pathImg = new Image(getClass().getResourceAsStream("/img/folderDeg.png"));
         treeSaveButton.setGraphic(new ImageView(saveImg));
         treeReInitButton.setGraphic(new ImageView(reIntiImg));
+        treeExcludeButton.setGraphic(new ImageView(excludeImg));
         treeButtonPath.setGraphic(new ImageView(pathImg));
     }
 

@@ -10,10 +10,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -115,18 +112,17 @@ public class Exclude {
         stage.setTitle("ListViewSample");
         Label label = new Label("Client Checked:");
         Button reInitButton = new Button("All Ok");
-        Label space = new Label("   ");
         Button saveButton = new Button("Save");
-        Label space1 = new Label("   ");
         Button closeButton = new Button("Close");
-
+        ToolBar toolBar = new ToolBar(reInitButton,saveButton,closeButton);
+        //todo toolbar position
         reInitButton.setOnAction(e -> reInit(list));
         saveButton.setOnAction(e -> save(stage));
         closeButton.setOnAction(e -> close(stage));
 
         hBox.setAlignment(Pos.CENTER_RIGHT);
-        hBox.getChildren().addAll(reInitButton, space, saveButton, space1, closeButton);
         vBox.getChildren().addAll(label, list,hBox);
+        hBox.getChildren().addAll(toolBar);
         VBox.setMargin(label, new Insets(1, 5, 1, 5));
         VBox.setMargin(list, new Insets(1, 5, 1, 5));
         VBox.setMargin(hBox, new Insets(1, 5, 5, 5));
@@ -146,8 +142,8 @@ public class Exclude {
      * @param stage
      */
     private void setStyle(VBox vBox, Stage stage) {
-        vBox.setStyle("-light-black: rgb(74, 75, 78);"+
-                "-dark-black: rgb(39, 40, 40);"+
+        vBox.setStyle("-light-black: rgb(74, 75, 78);" +
+                "-dark-black: rgb(39, 40, 40);" +
                 "-fx-border-color:\n" +
                 "        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),\n" +
                 "        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);\n" +

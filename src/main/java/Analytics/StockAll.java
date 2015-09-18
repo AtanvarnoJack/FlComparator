@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import BDD.CheckedClient.OpenHelperCheckedClient;
 import File.FileChooserFl;
 import View.Dialogs.Dialogs;
 
@@ -136,5 +137,27 @@ public class StockAll {
             }
         }
         return clientList;
+    }
+
+    public List<String> getYesClientCheckedList(){
+        List<String> yesClient = new ArrayList<>();
+        for (String client : clientCheckedList) {
+            String[] clientSplit = client.split(OpenHelperCheckedClient.getSeparator());
+            if (clientSplit[1].equals("yes")){
+                yesClient.add(clientSplit[0]);
+            }
+        }
+        return yesClient;
+    }
+
+    public List<String> getNoClientCheckedList(){
+        List<String> noClient = new ArrayList<>();
+        for (String client : clientCheckedList) {
+            String[] clientSplit = client.split(OpenHelperCheckedClient.getSeparator());
+            if (clientSplit[1].equals("no")){
+                noClient.add(clientSplit[0]);
+            }
+        }
+        return noClient;
     }
 }

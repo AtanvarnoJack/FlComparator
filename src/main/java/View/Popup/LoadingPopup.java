@@ -100,12 +100,12 @@ public class LoadingPopup {
                     Analytics analytics = new Analytics();
 
                     String allErrorClient = null;
-
-                    List<File> clientFileList = fileLoaderFl.getAllClientFileList(fileChooser);
-                    List<String> listClient = fileLoaderFl.getAllClientName(clientFileList);
-                    for (int i = 0; i < clientFileList.size(); i++) {
-                        File prodFlClient = fileLoaderFl.getProdFlClient(clientFileList.get(i), listClient.get(i));
-                        File lastArchFlClient = fileLoaderFl.getArchFlClient(clientFileList.get(i));
+//                    List<File> clientFileList = fileLoaderFl.getClientFileList(fileChooser);TODO
+                    List<File> clientAllFileList = fileLoaderFl.getAllClientFileList(fileChooser);
+                    List<String> listClient = fileLoaderFl.getAllClientName(clientAllFileList);
+                    for (int i = 0; i < clientAllFileList.size(); i++) {
+                        File prodFlClient = fileLoaderFl.getProdFlClient(clientAllFileList.get(i), listClient.get(i));
+                        File lastArchFlClient = fileLoaderFl.getArchFlClient(clientAllFileList.get(i));
                         if (prodFlClient != null && lastArchFlClient != null){
                             NumberClientFound++;
                             HashMap<String, List<String>> prodValueFlListCompare = null;
@@ -124,7 +124,7 @@ public class LoadingPopup {
                                 }
                             }
                         }
-                        updateProgress(i+1,clientFileList.size());
+                        updateProgress(i+1,clientAllFileList.size());
                     }
                     if(NumberClientFound > 0){
                         updateMessage(allErrorClient);

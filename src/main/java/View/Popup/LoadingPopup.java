@@ -100,8 +100,9 @@ public class LoadingPopup {
                     Analytics analytics = new Analytics();
 
                     String allErrorClient = null;
-//                    List<File> clientFileList = fileLoaderFl.getClientFileList(fileChooser);TODO
-                    List<File> clientAllFileList = fileLoaderFl.getAllClientFileList(fileChooser);
+                    StockAll stockAll = new StockAll();
+                    List<File> clientAllFileList = fileLoaderFl.getClientFileList(fileChooser, stockAll.getNoClientCheckedList());
+//                    List<File> clientAllFileList = fileLoaderFl.getAllClientFileList(fileChooser);
                     List<String> listClient = fileLoaderFl.getAllClientName(clientAllFileList);
                     for (int i = 0; i < clientAllFileList.size(); i++) {
                         File prodFlClient = fileLoaderFl.getProdFlClient(clientAllFileList.get(i), listClient.get(i));

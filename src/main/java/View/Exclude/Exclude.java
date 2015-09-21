@@ -19,7 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.controlsfx.control.PropertySheet;
 import org.tmatesoft.sqljet.core.SqlJetException;
 
 import java.io.FileNotFoundException;
@@ -32,6 +31,23 @@ import java.util.List;
  * Exclude analytics
  */
 public class Exclude {
+    public static final String LIST_VIEW_SAMPLE = "ListViewSample";
+    public static final String CLIENT_CHECKED = "Client Checked:";
+    public static final String IMG_REPOSITORY_DEG_PNG = "/img/repositoryDeg.png";
+    public static final String IMG_ALL_OK_PNG = "/img/allOk.png";
+    public static final String IMG_SAVE_DEG_PNG = "/img/saveDeg.png";
+    public static final String IMG_CLOSE_PNG = "/img/close.png";
+    public static final String TEXTURE_CSS = "/texture.css";
+    public static final String SEGMENTED_BUTTON_BAR_STYLESHEET = "segmented-button-bar";
+    public static final String SPACER = "spacer";
+    public static final String LIST_VIEW_STYLECLASS = "listView";
+    public static final String STYLE_CLASS_BACKGROUND = "-light-black: rgb(74, 75, 78);" +
+            "-dark-black: rgb(39, 40, 40);" +
+            "-fx-border-color:\n" +
+            "        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),\n" +
+            "        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);\n" +
+            "     -fx-border-width: 2px;\n" +
+            "     -fx-border-insets: 0px, 1px";
 
     /***
      * start method call onStart of ExcludeView
@@ -76,10 +92,10 @@ public class Exclude {
         if (clientList.size() != 0){
             String[] clientSplit = clientList.get(0).split(OpenHelperCheckedClient.getSeparator());
             try {
-                clientSplit[1].equals("yes");
+                clientSplit[1].equals( OpenHelperCheckedClient.getYes());
             }catch (Exception e){
                 for (int i = 0; i < clientList.size(); i++) {
-                    clientList.set(i,clientList.get(i)+OpenHelperCheckedClient.getSeparator()+"yes");
+                    clientList.set(i,clientList.get(i)+OpenHelperCheckedClient.getSeparator()+ OpenHelperCheckedClient.getYes());
                 }
             }
         }
@@ -101,10 +117,10 @@ public class Exclude {
                     ObservableList<String> itemSelected = list.getSelectionModel().getSelectedItems();
                     if (itemSelected != null){
                         String[] clientValue = itemSelected.get(0).split(OpenHelperCheckedClient.getSeparator());
-                        if (clientValue[1].equals("yes")){
-                            clientValue[1] = "no";
+                        if (clientValue[1].equals( OpenHelperCheckedClient.getYes())){
+                            clientValue[1] =  OpenHelperCheckedClient.getNo();
                         }else {
-                            clientValue[1] = "yes";
+                            clientValue[1] =  OpenHelperCheckedClient.getYes();
                         }
                         String concatValueClient = clientValue[0] + OpenHelperCheckedClient.getSeparator() + clientValue[1];
                         for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
@@ -135,34 +151,34 @@ public class Exclude {
     private void setItems(ListView<String> list, List<String> clientList, VBox vBox, HBox hBox, Scene scene, Stage stage) {
 
         stage.setScene(scene);
-        stage.setTitle("ListViewSample");
-        Label label = new Label("Client Checked:");
+        stage.setTitle(LIST_VIEW_SAMPLE);
+        Label label = new Label(CLIENT_CHECKED);
         Button pathButton = new Button();
         Button reInitButton = new Button();
         Button saveButton = new Button();
         Button closeButton = new Button();
 
-        Image pathImg = new Image(getClass().getResourceAsStream("/img/repositoryDeg.png"));
-        Image reInitImg = new Image(getClass().getResourceAsStream("/img/allOk.png"));
-        Image saveImg = new Image(getClass().getResourceAsStream("/img/saveDeg.png"));
-        Image closeImg = new Image(getClass().getResourceAsStream("/img/close.png"));
+        Image pathImg = new Image(getClass().getResourceAsStream(IMG_REPOSITORY_DEG_PNG));
+        Image reInitImg = new Image(getClass().getResourceAsStream(IMG_ALL_OK_PNG));
+        Image saveImg = new Image(getClass().getResourceAsStream(IMG_SAVE_DEG_PNG));
+        Image closeImg = new Image(getClass().getResourceAsStream(IMG_CLOSE_PNG));
 
         pathButton.setGraphic(new ImageView(pathImg));
         reInitButton.setGraphic(new ImageView(reInitImg));
         saveButton.setGraphic(new ImageView(saveImg));
         closeButton.setGraphic(new ImageView(closeImg));
 
-        String css = "/texture.css";
+        String css = TEXTURE_CSS;
         HBox hBoxButton = new HBox(pathButton, reInitButton,saveButton,closeButton);
         ToolBar toolBar = new ToolBar(hBoxButton);
-        hBoxButton.getStyleClass().add("segmented-button-bar");
+        hBoxButton.getStyleClass().add(SEGMENTED_BUTTON_BAR_STYLESHEET);
         Region region = new Region();
-        region.getStyleClass().add("spacer");
+        region.getStyleClass().add(SPACER);
         scene.getStylesheets().add(css);
-        list.getStyleClass().add("listView");
+        list.getStyleClass().add(LIST_VIEW_STYLECLASS);
 
         pathButton.setOnAction(e -> reLoadClient(list, clientList));
-        reInitButton.setOnAction(e -> reInit(list));
+        reInitButton.setOnAction(e -> reInit(list, clientList));
         saveButton.setOnAction(e -> save(stage));
         closeButton.setOnAction(e -> close(stage));
 
@@ -213,32 +229,43 @@ public class Exclude {
      * @param stage
      */
     private void setStyle(VBox vBox, Stage stage) {
-        vBox.setStyle("-light-black: rgb(74, 75, 78);" +
-                "-dark-black: rgb(39, 40, 40);" +
-                "-fx-border-color:\n" +
-                "        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),\n" +
-                "        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);\n" +
-                "     -fx-border-width: 2px;\n" +
-                "     -fx-border-insets: 0px, 1px");
+        vBox.setStyle(STYLE_CLASS_BACKGROUND);
         stage.initStyle(StageStyle.UNDECORATED);
     }
 
     /***
      * reInit method for pass all client at YES
      * @param list
+     * @param clientList
      */
-    private void reInit(ListView<String> list) {
-        String[] clientSplit;
-        for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
-            clientSplit = StockAll.clientCheckedList.get(i).split(OpenHelperCheckedClient.getSeparator());
-            if (clientSplit[1].equals("no")){
-                clientSplit[1] = "yes";
+    private void reInit(ListView<String> list, List<String> clientList) {
+        String[] client = clientList.get(0).split(OpenHelperCheckedClient.getSeparator());
+        if (client[1].equals( OpenHelperCheckedClient.getYes())){
+            String[] clientSplit;
+            for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
+                clientSplit = StockAll.clientCheckedList.get(i).split(OpenHelperCheckedClient.getSeparator());
+                if (clientSplit[1].equals( OpenHelperCheckedClient.getYes())){
+                    clientSplit[1] =  OpenHelperCheckedClient.getNo();
+                }
+                StockAll.clientCheckedList.set(i,clientSplit[0] + OpenHelperCheckedClient.getSeparator() + clientSplit[1]);
+                Collections.sort(StockAll.clientCheckedList);
+                ObservableList<String> data = FXCollections.observableArrayList(StockAll.clientCheckedList);
+                list.getItems().clear();
+                list.setItems(data);
             }
-            StockAll.clientCheckedList.set(i,clientSplit[0] + OpenHelperCheckedClient.getSeparator() + clientSplit[1]);
-            Collections.sort(StockAll.clientCheckedList);
-            ObservableList<String> data = FXCollections.observableArrayList(StockAll.clientCheckedList);
-            list.getItems().clear();
-            list.setItems(data);
+        }else {
+            String[] clientSplit;
+            for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
+                clientSplit = StockAll.clientCheckedList.get(i).split(OpenHelperCheckedClient.getSeparator());
+                if (clientSplit[1].equals( OpenHelperCheckedClient.getNo())){
+                    clientSplit[1] =  OpenHelperCheckedClient.getYes();
+                }
+                StockAll.clientCheckedList.set(i,clientSplit[0] + OpenHelperCheckedClient.getSeparator() + clientSplit[1]);
+                Collections.sort(StockAll.clientCheckedList);
+                ObservableList<String> data = FXCollections.observableArrayList(StockAll.clientCheckedList);
+                list.getItems().clear();
+                list.setItems(data);
+            }
         }
     }
 
@@ -305,7 +332,7 @@ public class Exclude {
                 String[] clientSplit = item.split(OpenHelperCheckedClient.getSeparator());
                 StackPane stack;
                 try {
-                    if (clientSplit[1].equals("yes")){
+                    if (clientSplit[1].equals( OpenHelperCheckedClient.getYes())){
                         clientChecked = true;
                     }
 

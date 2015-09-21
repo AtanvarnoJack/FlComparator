@@ -7,9 +7,7 @@ import org.tmatesoft.sqljet.core.table.SqlJetDb;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by alco on 16/09/2015.
@@ -28,7 +26,7 @@ public class GestionBDDCheckedClient {
             openHelperCheckedClient.createNewBase();
             openHelperCheckedClient.createTables(OpenHelperCheckedClient.getSqlJetDb());
             for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
-                openHelperCheckedClient.addRecordBase(OpenHelperCheckedClient.getSqlJetDb(), i, StockAll.clientCheckedList.get(i), "yes");
+                openHelperCheckedClient.addRecordBase(OpenHelperCheckedClient.getSqlJetDb(), i, StockAll.clientCheckedList.get(i), OpenHelperCheckedClient.getYes());
             }
         }else {
             StockAll stockAll = new StockAll();
@@ -39,7 +37,7 @@ public class GestionBDDCheckedClient {
                 dialogs.dialogsNoRepositoriesWithFlClientFound();
             }
             for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
-                openHelperCheckedClient.addRecordBase(OpenHelperCheckedClient.getSqlJetDb(), i, StockAll.clientCheckedList.get(i), "yes");
+                openHelperCheckedClient.addRecordBase(OpenHelperCheckedClient.getSqlJetDb(), i, StockAll.clientCheckedList.get(i),  OpenHelperCheckedClient.getYes());
             }
         }
     }

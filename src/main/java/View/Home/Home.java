@@ -28,6 +28,9 @@ import java.util.List;
 public class Home {
     private final static String APP_TITLE = "Fl Equipment Comparator";
     private final static String ICON_Fl_COMPARATOR = "/img/IconComparator.png";
+    public static final String HOME_PAGE_FXML = "/HomePage.fxml";
+    public static final String TEXTURE_CSS = "/texture.css";
+
     /**
      * startStage start the stage of application with default params
      * @param stage
@@ -39,7 +42,7 @@ public class Home {
         stage.setMinWidth(600);
         stage.getIcons().add(new Image(ICON_Fl_COMPARATOR));
 
-        Parent root = FXMLLoader.load(getClass().getResource("/HomePage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource(HOME_PAGE_FXML));
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {
@@ -49,7 +52,7 @@ public class Home {
         });
         Scene scene = new Scene(root);
 
-        String css = "/texture.css";
+        String css = TEXTURE_CSS;
         scene.getStylesheets().add(css);
 
         stage.setScene(scene);

@@ -26,6 +26,10 @@ import java.util.ResourceBundle;
  * Created by alco on 05/08/2015.
  */
 public class TreeTableDisplayView extends Application implements Initializable {
+    public static final String IMG_SAVE_DEG_PNG = "/img/saveDeg.png";
+    public static final String IMG_UNDO_ARROW_DEG_PNG = "/img/undoArrowDeg.png";
+    public static final String IMG_EXCLUDE_PNG = "/img/exclude.png";
+    public static final String IMG_FOLDER_DEG_PNG = "/img/folderDeg.png";
 
     @FXML
     AnchorPane AppTree;
@@ -68,10 +72,10 @@ public class TreeTableDisplayView extends Application implements Initializable {
             refreshDataTableView(treeTable);
             labelTreeTable.setText(file.getPath());
         }
-        Image saveImg = new Image(getClass().getResourceAsStream("/img/saveDeg.png"));
-        Image reIntiImg = new Image(getClass().getResourceAsStream("/img/undoArrowDeg.png"));
-        Image excludeImg = new Image(getClass().getResourceAsStream("/img/exclude.png"));
-        Image pathImg = new Image(getClass().getResourceAsStream("/img/folderDeg.png"));
+        Image saveImg = new Image(getClass().getResourceAsStream(IMG_SAVE_DEG_PNG));
+        Image reIntiImg = new Image(getClass().getResourceAsStream(IMG_UNDO_ARROW_DEG_PNG));
+        Image excludeImg = new Image(getClass().getResourceAsStream(IMG_EXCLUDE_PNG));
+        Image pathImg = new Image(getClass().getResourceAsStream(IMG_FOLDER_DEG_PNG));
         treeSaveButton.setGraphic(new ImageView(saveImg));
         treeReInitButton.setGraphic(new ImageView(reIntiImg));
         treeExcludeButton.setGraphic(new ImageView(excludeImg));

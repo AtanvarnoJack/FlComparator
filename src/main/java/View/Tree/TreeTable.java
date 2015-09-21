@@ -2,6 +2,7 @@ package View.Tree;
 
 import Analytics.StockAll;
 import BDD.Champs.GestionBDDParams;
+import BDD.CheckedClient.OpenHelperCheckedClient;
 import BDD.Path.OpenHelperPath;
 import Excel.ApachePoi.ExcelReader;
 import File.FileChooserFl;
@@ -37,6 +38,8 @@ public class TreeTable {
     private final static String FICHIER_DE_LIAISON = "Fichier de Liaison";
     private final static String SELECTED_TITLE = "Champs sélectionné:";
     private final static String TITLE_TABLE_VIEW_REF = "Réf du Fl:";
+    public static final String BAD_FILE = "Bad File!";
+    public static final String TEXTURE_CSS = "/texture.css";
 
     /**
      * startStage
@@ -47,7 +50,7 @@ public class TreeTable {
         Parent parent = FXMLLoader.load(getClass().getResource("/TreeTable.fxml"));
         Scene scene = new Scene(parent);
 
-        String css = "/texture.css";
+        String css = TEXTURE_CSS;
         scene.getStylesheets().add(css);
         Stage stage = new Stage();
         stage.setMinHeight(500);
@@ -120,7 +123,7 @@ public class TreeTable {
         TreeItem<String> childNodeSheet = new TreeItem<String>(entry.getKey().getSheetName());
         List<String> titleList = entry.getValue();
         for (String title : titleList) {
-            TreeItem<String> childNodeTitle = new TreeItem<>(entry.getKey().getSheetName()  + ":" + title);
+            TreeItem<String> childNodeTitle = new TreeItem<>(entry.getKey().getSheetName()  + OpenHelperCheckedClient.getSeparator() + title);
             childNodeSheet.getChildren().add(childNodeTitle);
         }
         return childNodeSheet;
@@ -156,7 +159,7 @@ public class TreeTable {
             }
             return treeRoot;
         }else {
-            throw new IllegalArgumentException("Bad File!");
+            throw new IllegalArgumentException(BAD_FILE);
         }
     }
 
@@ -178,7 +181,7 @@ public class TreeTable {
         for (Entry<String, List<String>> entry : sheetTitleList.entrySet()) {
             List<String> champList = entry.getValue();
             for (String champs : champList) {
-                TreeItem<String> childNodeTitle = new TreeItem<>(entry.getKey() + ":" + champs);
+                TreeItem<String> childNodeTitle = new TreeItem<>(entry.getKey() + OpenHelperCheckedClient.getSeparator() + champs);
                 childNodeTitle.setExpanded(true);
                 treeRoot.getChildren().add(childNodeTitle);
             }

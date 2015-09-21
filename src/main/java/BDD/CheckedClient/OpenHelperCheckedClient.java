@@ -15,6 +15,8 @@ import java.util.List;
  */
 public class OpenHelperCheckedClient {
     private final static String SEPARATOR = ":";
+    private final static String YES = "yes";
+    private final static String NO = "no";
     private final static String DB_REPOSITORIES = "Settings/";
     private final static String DB_NAME = "ParamsBaseCheckedClient";
     private final static String TABLE_PARAMS = "params";
@@ -175,5 +177,13 @@ public class OpenHelperCheckedClient {
 
     public static String getSeparator() {
         return SEPARATOR;
+    }
+
+    public static String getYes() {
+        return YES;
+    }
+
+    public static String getNo() {
+        return NO;
     }
 }

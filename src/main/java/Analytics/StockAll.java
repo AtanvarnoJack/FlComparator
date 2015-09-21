@@ -143,7 +143,7 @@ public class StockAll {
         List<String> yesClient = new ArrayList<>();
         for (String client : clientCheckedList) {
             String[] clientSplit = client.split(OpenHelperCheckedClient.getSeparator());
-            if (clientSplit[1].equals("yes")){
+            if (clientSplit[1].equals( OpenHelperCheckedClient.getYes())){
                 yesClient.add(clientSplit[0]);
             }
         }
@@ -154,7 +154,7 @@ public class StockAll {
         List<String> noClient = new ArrayList<>();
         for (String client : clientCheckedList) {
             String[] clientSplit = client.split(OpenHelperCheckedClient.getSeparator());
-            if (clientSplit[1].equals("no")){
+            if (clientSplit[1].equals( OpenHelperCheckedClient.getNo())){
                 noClient.add(clientSplit[0]);
             }
         }

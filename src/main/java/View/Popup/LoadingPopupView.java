@@ -21,7 +21,7 @@ public class LoadingPopupView extends Application implements Initializable {
     @Override
     public void start(Stage primaryStage) throws IOException {
         LoadingPopup loadingPopup = new LoadingPopup();
-        loadingPopup.startLoadingpopup();
+        loadingPopup.startLoadingPopup();
     }
 
     @Override

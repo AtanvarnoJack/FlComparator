@@ -32,15 +32,17 @@ import java.util.List;
 public class LoadingPopup {
     private final static String FILE_NOT_FOUND = "FileNotFoundException!";
     private final static String CLIENT_NOT_FOUND = "ClientNotFoundException!";
+    public static final String TEXTURE_CSS = "/texture.css";
+    public static final String POPUP_LOADING_FXML = "/PopupLoading.fxml";
 
     Task processTask;
     Task processWait;
 
-    protected void startLoadingpopup() throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("/PopupLoading.fxml"));
+    protected void startLoadingPopup() throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource(POPUP_LOADING_FXML));
         Scene scene = new Scene(parent);
 
-        String css = "/texture.css";
+        String css = TEXTURE_CSS;
         scene.getStylesheets().add(css);
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);

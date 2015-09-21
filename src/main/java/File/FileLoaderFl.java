@@ -14,6 +14,12 @@ import java.util.List;
 public class FileLoaderFl {
     private final static String START_FL_NAME = "Fichier Liaison V4";
     private final static String EXTENSION = ".xlsm";
+    public static final String YEARS = "YEARS";
+    public static final String MONTH = "MONTH";
+    public static final String DAY = "DAY";
+    public static final String HOUR = "HOUR";
+    public static final String MINUTE = "MINUTE";
+    public static final String SECONDS = "SECONDS";
 
     public int getNumberOfClient(File pathClients){
         return pathClients.listFiles().length;
@@ -111,12 +117,6 @@ public class FileLoaderFl {
     public File getArchFlClient(File client) {
         HashMap<String,Integer> paramsDateOld = new HashMap<>();
         HashMap<String,Integer> paramsDateNew = new HashMap<>();
-        final String YEARS = "YEARS";
-        final String MONTH = "MONTH";
-        final String DAY = "DAY";
-        final String HOUR = "HOUR";
-        final String MINUTE = "MINUTE";
-        final String SECONDS = "SECONDS";
 
         //Fichier Liaison V4_ADEO_2014_8_18-18h11m23s.xlsm
         File file = null;

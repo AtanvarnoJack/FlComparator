@@ -12,6 +12,13 @@ import java.io.FileNotFoundException;
  * FileChooserFl contain all method implement a FileChooser
  */
 public class FileChooserFl {
+
+    public static final String SELECT_REPOSITORIE = "Select Repositorie";
+    public static final String C = "c:";
+    public static final String NO_DIRECTORIES_CHOOSE = "No Directories choose!";
+    public static final String OPEN_THE_SOURCE_FILE = " : Open the source file";
+    public static final String C1 = "C:/";
+
     /**
      * getRepositoriesClients display a windows FileChooser for select a Excel File
      * @return File
@@ -19,12 +26,12 @@ public class FileChooserFl {
      */
     public File getRepositoriesClients() throws FileNotFoundException {
         DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setTitle("Select Repositorie");
-        File defaultDirectory = new File("c:");
+        chooser.setTitle(SELECT_REPOSITORIE);
+        File defaultDirectory = new File(C);
         chooser.setInitialDirectory(defaultDirectory);
         File file = chooser.showDialog(null);
         if (file == null){
-            throw new FileNotFoundException("No Directories choose!");
+            throw new FileNotFoundException(NO_DIRECTORIES_CHOOSE);
         }
         return file;
     }
@@ -42,13 +49,13 @@ public class FileChooserFl {
                 new FileChooser.ExtensionFilter("All files (*.*)", "*.*")
         );
 
-        fileChooser.setTitle(Home.getAppTitle() + " : Open the source file");
+        fileChooser.setTitle(Home.getAppTitle() + OPEN_THE_SOURCE_FILE);
 
-        File defaultDirectory = new File("C:/");
+        File defaultDirectory = new File(C1);
         fileChooser.setInitialDirectory(defaultDirectory);
         File file = fileChooser.showOpenDialog(null);
         if (file == null){
-            throw new FileNotFoundException("No Directories choose!");
+            throw new FileNotFoundException(NO_DIRECTORIES_CHOOSE);
         }
         return file;
     }

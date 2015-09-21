@@ -11,15 +11,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.controlsfx.control.PropertySheet;
 import org.tmatesoft.sqljet.core.SqlJetException;
 
 import java.io.FileNotFoundException;
@@ -52,7 +52,7 @@ public class Exclude {
 
         VBox vBox = new VBox();
         HBox hBox = new HBox();
-        Scene scene = new Scene(vBox, 300, 300);
+        Scene scene = new Scene(vBox);
         Stage stage = new Stage();
         setStyle(vBox, stage);
         List<String> clientList = setItems(list, vBox, hBox, scene, stage);
@@ -108,20 +108,37 @@ public class Exclude {
      * @return
      */
     private List<String> setItems(ListView<String> list, VBox vBox, HBox hBox, Scene scene, Stage stage) {
+
         stage.setScene(scene);
         stage.setTitle("ListViewSample");
         Label label = new Label("Client Checked:");
-        Button reInitButton = new Button("All Ok");
-        Button saveButton = new Button("Save");
-        Button closeButton = new Button("Close");
-        ToolBar toolBar = new ToolBar(reInitButton,saveButton,closeButton);
-        //todo toolbar position
+        Button reInitButton = new Button();
+        Button saveButton = new Button();
+        Button closeButton = new Button();
+
+        Image reInitImg = new Image(getClass().getResourceAsStream("/img/allOk.png"));
+        Image saveImg = new Image(getClass().getResourceAsStream("/img/saveDeg.png"));
+        Image closeImg = new Image(getClass().getResourceAsStream("/img/close.png"));
+
+        reInitButton.setGraphic(new ImageView(reInitImg));
+        saveButton.setGraphic(new ImageView(saveImg));
+        closeButton.setGraphic(new ImageView(closeImg));
+
+        String css = "/texture.css";
+        HBox hBoxButton = new HBox(reInitButton,saveButton,closeButton);
+        ToolBar toolBar = new ToolBar(hBoxButton);
+        hBoxButton.getStyleClass().add("segmented-button-bar");
+        Region region = new Region();
+        region.getStyleClass().add("spacer");
+        scene.getStylesheets().add(css);
+        list.getStyleClass().add("listView");
         reInitButton.setOnAction(e -> reInit(list));
         saveButton.setOnAction(e -> save(stage));
         closeButton.setOnAction(e -> close(stage));
 
         hBox.setAlignment(Pos.CENTER_RIGHT);
-        vBox.getChildren().addAll(label, list,hBox);
+        list.setMaxHeight(300);
+        vBox.getChildren().addAll(hBox, label, list);
         hBox.getChildren().addAll(toolBar);
         VBox.setMargin(label, new Insets(1, 5, 1, 5));
         VBox.setMargin(list, new Insets(1, 5, 1, 5));
@@ -245,9 +262,9 @@ public class Exclude {
                 }
 
                 if(clientChecked){
-                    rect.setFill(Color.rgb(0,255,0,0.2));
+                    rect.setFill(Color.rgb(3,115,1,0.7));
                 }else {
-                    rect.setFill(Color.rgb(255,0,0,0.2));
+                    rect.setFill(Color.rgb(20,20,20,0.7));
                 }
 
                 Label label = new Label(clientSplit[0]);

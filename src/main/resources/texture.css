@@ -21,6 +21,10 @@
     -fx-background-color: -mid-gray;
 }
 
+.background {
+    -fx-background-color: -mid-gray;
+}
+
 .tool-bar {
     -fx-base: -dark-black;
     -fx-font-size: 12pt;
@@ -37,6 +41,12 @@
 }
 
 .segmented-button-bar .button {
+    -light-black: rgb(74, 75, 78);
+    -dark-highlight: rgb(87, 89, 92);
+    -dark-black: rgb(39, 40, 40);
+    -darkest-black: rgb(5, 5, 5);
+    -mid-gray: rgb(216, 222, 227);
+
     -fx-background-color:
         -darkest-black,
         -dark-highlight,
@@ -123,6 +133,73 @@
     -fx-background-radius: 2em;
 }
 
+/***            listView           ***/
+
+.list-cell {
+-fx-text-fill: black;
+-fx-border-color: -mid-gray;
+}
+
+.list-cell: focused  {
+     -fx-background-color:
+             linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
+             linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+     -fx-effect: dropshadow(two-pass-box,black,5,.2,0,0);
+}
+
+.list-cell: selected  {
+     -fx-background-color:
+             linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
+             linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+     -fx-effect: dropshadow(two-pass-box,black,5,.2,0,0);
+}
+
+.listView{
+    -fx-background: -dark-highlight;
+    -fx-border-width: 2px;
+    -fx-border-color:
+        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
+        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+}
+
+.listView .scroll-bar:horizontal .track,
+.listView .scroll-bar:vertical .track{
+    -fx-background-color:-dark-highlight;
+    -fx-border-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-border-radius:2em;
+}
+
+.listView .scroll-bar:horizontal .increment-button ,
+.listView .scroll-bar:horizontal .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding:0 0 10 0;
+}
+
+.listView .scroll-bar:vertical .increment-button ,
+.listView .scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding:0 10 0 0;
+}
+
+.listView .scrollPaneLabel .scroll-bar .increment-arrow,
+.listView .scrollPaneLabel .scroll-bar .decrement-arrow,
+{
+    -fx-padding:0;
+}
+
+.listView .scroll-bar:horizontal .thumb,
+.listView .scroll-bar:vertical .thumb {
+    -fx-background-color:
+        linear-gradient(to bottom, derive(-fx-base,-30%), derive(-fx-base,-60%)),
+        linear-gradient(to bottom, -light-black 2%, -dark-black 98%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+}
 /***            treeTableView           ***/
 .tree-table-view .column-header .label {
     -fx-background-color:

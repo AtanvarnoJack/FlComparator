@@ -62,8 +62,12 @@ public class GestionBDDCheckedClient {
      * @return HashMap<String, List<String>>
      * @throws SqlJetException
      */
-    public List<String> getAllData() throws SqlJetException {
+    public List<String> getAllData() {
         OpenHelperCheckedClient openHelperCheckedClient = new OpenHelperCheckedClient();
-        return openHelperCheckedClient.getAllRecords(OpenHelperCheckedClient.getSqlJetDb());
+        try {
+            return openHelperCheckedClient.getAllRecords(OpenHelperCheckedClient.getSqlJetDb());
+        } catch (SqlJetException e) {
+            return new ArrayList<>();
+        }
     }
 }

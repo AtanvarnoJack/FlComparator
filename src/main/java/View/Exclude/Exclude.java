@@ -55,9 +55,37 @@ public class Exclude {
         Scene scene = new Scene(vBox);
         Stage stage = new Stage();
         setStyle(vBox, stage);
-        List<String> clientList = setItems(list, vBox, hBox, scene, stage);
+        List<String> clientList = getClientList();
+        setItems(list,clientList, vBox, hBox, scene, stage);
         setList(list, clientList);
+
+        ObservableList<String> data = FXCollections.observableArrayList(StockAll.clientCheckedList);
+        list.getItems().clear();
+        list.setItems(data);
+
+        list.setCellFactory(list1 -> new ColorRectCell());
         return stage;
+    }
+
+    /***
+     * getClientList
+     * @return
+     */
+    private List<String> getClientList() {
+        List<String> clientList = StockAll.clientCheckedList;
+        if (clientList.size() != 0){
+            String[] clientSplit = clientList.get(0).split(OpenHelperCheckedClient.getSeparator());
+            try {
+                clientSplit[1].equals("yes");
+            }catch (Exception e){
+                for (int i = 0; i < clientList.size(); i++) {
+                    clientList.set(i,clientList.get(i)+OpenHelperCheckedClient.getSeparator()+"yes");
+                }
+            }
+        }
+        Collections.sort(clientList);
+        StockAll.clientCheckedList = clientList;
+        return clientList;
     }
 
     /***
@@ -65,37 +93,34 @@ public class Exclude {
      * @param list
      * @param clientList
      */
-    private void setList(final ListView<String> list, final List<String> clientList) {
-        ObservableList<String> data = FXCollections.observableArrayList(clientList);
+    private void setList(ListView<String> list, List<String> clientList) {
         list.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getClickCount() == 2){
                     ObservableList<String> itemSelected = list.getSelectionModel().getSelectedItems();
-                    String[] clientValue = itemSelected.get(0).split(OpenHelperCheckedClient.getSeparator());
-                    if (clientValue[1].equals("yes")){
-                        clientValue[1] = "no";
-                    }else {
-                        clientValue[1] = "yes";
-                    }
-                    String concatValueClient = clientValue[0] + OpenHelperCheckedClient.getSeparator() + clientValue[1];
-                    for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
-                        if (StockAll.clientCheckedList.get(i).equals(itemSelected.get(0))){
-                            StockAll.clientCheckedList.remove(i);
-                            StockAll.clientCheckedList.add(concatValueClient);
+                    if (itemSelected != null){
+                        String[] clientValue = itemSelected.get(0).split(OpenHelperCheckedClient.getSeparator());
+                        if (clientValue[1].equals("yes")){
+                            clientValue[1] = "no";
+                        }else {
+                            clientValue[1] = "yes";
                         }
+                        String concatValueClient = clientValue[0] + OpenHelperCheckedClient.getSeparator() + clientValue[1];
+                        for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
+                            if (StockAll.clientCheckedList.get(i).equals(itemSelected.get(0))){
+                                StockAll.clientCheckedList.set(i, concatValueClient);
+                            }
+                        }
+                        Collections.sort(StockAll.clientCheckedList);
+                        Collections.sort(clientList);
+                        ObservableList<String> data = FXCollections.observableArrayList(StockAll.clientCheckedList);
+                        list.getItems().clear();
+                        list.setItems(data);
                     }
-                    Collections.sort(StockAll.clientCheckedList);
-                    Collections.sort(clientList);
-                    ObservableList<String> data = FXCollections.observableArrayList(clientList);
-                    list.setItems(data);
                 }
             }
         });
-
-        list.setItems(data);
-
-        list.setCellFactory(list1 -> new ColorRectCell(clientList));
     }
 
     /***
@@ -107,31 +132,36 @@ public class Exclude {
      * @param stage
      * @return
      */
-    private List<String> setItems(ListView<String> list, VBox vBox, HBox hBox, Scene scene, Stage stage) {
+    private void setItems(ListView<String> list, List<String> clientList, VBox vBox, HBox hBox, Scene scene, Stage stage) {
 
         stage.setScene(scene);
         stage.setTitle("ListViewSample");
         Label label = new Label("Client Checked:");
+        Button pathButton = new Button();
         Button reInitButton = new Button();
         Button saveButton = new Button();
         Button closeButton = new Button();
 
+        Image pathImg = new Image(getClass().getResourceAsStream("/img/repositoryDeg.png"));
         Image reInitImg = new Image(getClass().getResourceAsStream("/img/allOk.png"));
         Image saveImg = new Image(getClass().getResourceAsStream("/img/saveDeg.png"));
         Image closeImg = new Image(getClass().getResourceAsStream("/img/close.png"));
 
+        pathButton.setGraphic(new ImageView(pathImg));
         reInitButton.setGraphic(new ImageView(reInitImg));
         saveButton.setGraphic(new ImageView(saveImg));
         closeButton.setGraphic(new ImageView(closeImg));
 
         String css = "/texture.css";
-        HBox hBoxButton = new HBox(reInitButton,saveButton,closeButton);
+        HBox hBoxButton = new HBox(pathButton, reInitButton,saveButton,closeButton);
         ToolBar toolBar = new ToolBar(hBoxButton);
         hBoxButton.getStyleClass().add("segmented-button-bar");
         Region region = new Region();
         region.getStyleClass().add("spacer");
         scene.getStylesheets().add(css);
         list.getStyleClass().add("listView");
+
+        pathButton.setOnAction(e -> reLoadClient(list, clientList));
         reInitButton.setOnAction(e -> reInit(list));
         saveButton.setOnAction(e -> save(stage));
         closeButton.setOnAction(e -> close(stage));
@@ -147,10 +177,34 @@ public class Exclude {
 
         label.setLayoutX(10);
         label.setLayoutY(115);
-        List<String> clientList = StockAll.clientCheckedList;
-        Collections.sort(StockAll.clientCheckedList);
-        Collections.sort(clientList);
-        return clientList;
+    }
+
+    /***
+     * reLoadClient
+     */
+    private void reLoadClient(ListView<String> list, List<String> clientList) {
+        StockAll.repositoryAllClient = null;
+        GestionBDDCheckedClient gestionBDDCheckedClient = new GestionBDDCheckedClient();
+        Dialogs dialogs = new Dialogs();
+        StockAll stockAll = new StockAll();
+        try {
+            StockAll.clientCheckedList = stockAll.loadClientList();
+            clientList =  getClientList();
+            Collections.sort(StockAll.clientCheckedList);
+            gestionBDDCheckedClient.initBase();
+        } catch (FileNotFoundException e) {
+            dialogs.dialogsNoRepositoriesWithFlClientFound();
+        } catch (SqlJetException e) {
+            dialogs.dialogsBDDError();
+        }
+        removeItemsList(list);
+        FXCollections.observableArrayList().clear();
+        ObservableList<String> data = FXCollections.observableArrayList(clientList);
+        list.getItems().clear();
+        setList(list, clientList);
+        list.setItems(data);
+
+        list.setCellFactory(list1 -> new ColorRectCell());
     }
 
     /***
@@ -183,6 +237,7 @@ public class Exclude {
             StockAll.clientCheckedList.set(i,clientSplit[0] + OpenHelperCheckedClient.getSeparator() + clientSplit[1]);
             Collections.sort(StockAll.clientCheckedList);
             ObservableList<String> data = FXCollections.observableArrayList(StockAll.clientCheckedList);
+            list.getItems().clear();
             list.setItems(data);
         }
     }
@@ -194,12 +249,9 @@ public class Exclude {
         try {
             GestionBDDCheckedClient gestionBDDCheckedClient = new GestionBDDCheckedClient();
             if (StockAll.clientCheckedList.size() == 0){
-                List<String> listClientBdd = new ArrayList<>();
-                try {
-                    listClientBdd = gestionBDDCheckedClient.getAllData();
-                }catch (SqlJetException e){}
-
                 StockAll stockAll = new StockAll();
+                List<String> listClientBdd = gestionBDDCheckedClient.getAllData();
+
                 if (listClientBdd.size() == 0){
                     StockAll.clientCheckedList = stockAll.loadClientList();
                     gestionBDDCheckedClient.initBase();
@@ -244,12 +296,6 @@ public class Exclude {
      * ColorRectCell cellFactory for cell color
      */
     static class ColorRectCell extends ListCell<String> {
-        private  List<String> clientCheckedList = new ArrayList<>();
-
-        ColorRectCell(List<String> clientCheckedList){
-            this.clientCheckedList = clientCheckedList;
-        }
-
         @Override
         public void updateItem(String item, boolean empty) {
             super.updateItem(item, empty);
@@ -257,22 +303,36 @@ public class Exclude {
             if (item != null) {
                 boolean clientChecked = false;
                 String[] clientSplit = item.split(OpenHelperCheckedClient.getSeparator());
-                if (clientSplit[1].equals("yes")){
-                    clientChecked = true;
-                }
+                StackPane stack;
+                try {
+                    if (clientSplit[1].equals("yes")){
+                        clientChecked = true;
+                    }
 
-                if(clientChecked){
+                    if(clientChecked){
+                        rect.setFill(Color.rgb(3,115,1,0.7));
+                    }else {
+                        rect.setFill(Color.rgb(20,20,20,0.7));
+                    }
+
+                    Label label = new Label(clientSplit[0]);
+                    stack = new StackPane();
+                    stack.getChildren().addAll(rect, label);
+                }catch (Exception e){
                     rect.setFill(Color.rgb(3,115,1,0.7));
-                }else {
-                    rect.setFill(Color.rgb(20,20,20,0.7));
+                    Label label = new Label(clientSplit[0]);
+                    stack = new StackPane();
+                    stack.getChildren().addAll(rect, label);
                 }
-
-                Label label = new Label(clientSplit[0]);
-                StackPane stack = new StackPane();
-                stack.getChildren().addAll(rect, label);
-
                 setGraphic(stack);
             }
         }
+    }
+
+    private void removeItemsList(ListView<String> list){
+        list.getItems().clear();
+        list.getSelectionModel().clearSelection();
+        List<String> selectedItemsCopy = new ArrayList<>(list.getSelectionModel().getSelectedItems());
+        list.getItems().removeAll(selectedItemsCopy);
     }
 }

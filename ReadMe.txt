@@ -29,6 +29,7 @@ Ce répertoire doit contenir la liste des répertoires client.
 
 Exclude View:
 Permet de choisir les clients à tester.
+	- ReInitFoledr : Permet de selectionné un autre dossier de référence pour la liste des clients a exclure.
 	- All Ok : Permet de selectionné tous les clients.
 	- Save : Permet de sauvegarder les choix en base.
 	- Close : fermer la fenêtre.

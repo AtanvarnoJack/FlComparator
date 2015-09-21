@@ -50,6 +50,8 @@ public class TreeTable {
         String css = "/texture.css";
         scene.getStylesheets().add(css);
         Stage stage = new Stage();
+        stage.setMinHeight(500);
+        stage.setMinWidth(700);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.getIcons().add(new Image(Home.getICON_Fl_COMPARATOR()));
         stage.setScene(scene);

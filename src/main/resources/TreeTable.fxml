@@ -18,14 +18,17 @@
                                 <Button fx:id="treeReInitButton" alignment="CENTER_LEFT" text="ReInit" onAction="#buttonHandleActionReInit"/>
                                 <Button fx:id="treeExcludeButton" alignment="CENTER_LEFT" text="Exclude" onAction="#buttonHandleActionExclude"/>
                                 <Button fx:id="treeButtonPath" alignment="CENTER_LEFT" mnemonicParsing="false" onAction="#handleButtonTreePath" text="Path Ref"/>
-                                <Label alignment="CENTER_LEFT" text=" "></Label>
-                                <Label alignment="CENTER_LEFT" fx:id="labelTreeTable" text="####"></Label>
                             </HBox>
                         </items>
                     </ToolBar>
                 </top>
             </BorderPane>
-            <Label text="  "></Label>
+            <Label styleClass="spacer" />
+            <HBox>
+                <Label text="Path: "></Label>
+                <Label alignment="CENTER_LEFT" fx:id="labelTreeTable" text="####"></Label>
+            </HBox>
+            <Label styleClass="spacer" />
             <HBox  AnchorPane.rightAnchor="10" AnchorPane.leftAnchor="10">
                 <Pane HBox.hgrow="ALWAYS"></Pane>
                 <TreeTableView fx:id="treeTableAff" VBox.vgrow="ALWAYS">

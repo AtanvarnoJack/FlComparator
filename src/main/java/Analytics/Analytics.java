@@ -9,6 +9,7 @@ import java.util.Map.*;
  * Created by alco on 04/08/2015.
  * Analytics class contain all compare method.
  */
+@SuppressWarnings("javadoc")
 public class Analytics {
 
     /***
@@ -27,8 +28,8 @@ public class Analytics {
 
         for (int i = 0; i < tagFirstList.size(); i++) {
             boolean secondNotEmpty = true;
-            List<String> equipmentFirst = new ArrayList<String>();
-            List<String> equipmentSecond  = new ArrayList<String>();
+            List<String> equipmentFirst;
+            List<String> equipmentSecond;
             int rangEquipmentSecond = -1;
 
             hostnameFirst = getHostname(tagFirstList, i);
@@ -85,7 +86,7 @@ public class Analytics {
      * @return List<String>
      */
     private  List<String> getEquipmentByInt(HashMap<String, List<String>> newFl, int pos) {
-        List<String> equipmentFirst = new ArrayList<String>();
+        List<String> equipmentFirst = new ArrayList<>();
         for (Entry<String, List<String>> entry : newFl.entrySet()) {
             List<String> firstList = entry.getValue();
             equipmentFirst.add(firstList.get(pos));
@@ -100,7 +101,7 @@ public class Analytics {
      * @return List<String>
      */
     private List<String> getEquipmentByHostname(HashMap<String, List<String>> oldFl, int rangEquipmentSecond) {
-        List<String> equipmentSecond = new ArrayList<String>();
+        List<String> equipmentSecond = new ArrayList<>();
         if (rangEquipmentSecond > -1){
             for(Entry<String, List<String>> entry : oldFl.entrySet()) {
                 List<String> secondList = entry.getValue();

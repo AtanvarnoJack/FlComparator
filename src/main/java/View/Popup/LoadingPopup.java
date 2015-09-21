@@ -1,10 +1,11 @@
 package View.Popup;
 
-import Analytics.*;
+import Analytics.Analytics;
+import Analytics.StockAll;
 import Excel.ApachePoi.ExcelLoaderApache;
 import Excel.ExcelLoader;
-
-import View.Home.Home;
+import File.FileChooserFl;
+import File.FileLoaderFl;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
@@ -12,14 +13,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.File;
-import File.FileLoaderFl;
-import File.FileChooserFl;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
@@ -29,6 +27,7 @@ import java.util.List;
  * Created by alco on 06/08/2015.
  * contain all method of LoadingPopupView
  */
+@SuppressWarnings("javadoc")
 public class LoadingPopup {
     private final static String FILE_NOT_FOUND = "FileNotFoundException!";
     private final static String CLIENT_NOT_FOUND = "ClientNotFoundException!";
@@ -116,7 +115,7 @@ public class LoadingPopup {
                             try {
                                 prodValueFlListCompare = excelLoader.getAllCompareValueFl(prodFlClient);
                                 archValueFlListCompare = excelLoader.getAllCompareValueFl(lastArchFlClient);
-                            }catch (IllegalArgumentException e){}
+                            }catch (IllegalArgumentException ignored){}
                             if (prodValueFlListCompare != null && archValueFlListCompare != null){
                                 if(!analytics.compareTwoHashMapContentFlEquipment(prodValueFlListCompare, archValueFlListCompare)){
                                     if(allErrorClient == null){

@@ -10,6 +10,7 @@ import java.util.List;
  * Created by alco on 04/08/2015.
  * FileLoaderFl contain all method for load a file
  */
+@SuppressWarnings("javadoc")
 public class FileLoaderFl {
     private final static String START_FL_NAME = "Fichier Liaison V4";
     private final static String EXTENSION = ".xlsm";
@@ -25,11 +26,13 @@ public class FileLoaderFl {
      * @throws FileNotFoundException
      */
     public List<File> getAllClientFileList(File pathClients) throws FileNotFoundException {
-        List<File> listClientFile = new ArrayList<File>();
+        List<File> listClientFile = new ArrayList<>();
         File[] listClientFileArray = pathClients.listFiles();
-        for (File file : listClientFileArray) {
-            if (file.isDirectory()){
-                listClientFile.add(file);
+        if (listClientFileArray != null){
+            for (File file : listClientFileArray) {
+                if (file.isDirectory()){
+                    listClientFile.add(file);
+                }
             }
         }
         return listClientFile;
@@ -43,7 +46,7 @@ public class FileLoaderFl {
      * @throws FileNotFoundException
      */
     public List<File> getClientFileList(File pathClients, List<String> excludeClientNameList) throws FileNotFoundException {
-        List<File> listClientFile = new ArrayList<File>();
+        List<File> listClientFile = new ArrayList<>();
         File[] listClientFileArray = pathClients.listFiles();
         for (File file : listClientFileArray) {
             if (file.isDirectory()){
@@ -67,7 +70,7 @@ public class FileLoaderFl {
      * @throws IllegalArgumentException
      */
     public List<String> getAllClientName(List<File> clientFileList) throws IllegalArgumentException {
-        List<String> listClient = new ArrayList<String>();
+        List<String> listClient = new ArrayList<>();
         for (File client : clientFileList) {
             if(client.isDirectory()){
                 listClient.add(client.getName());
@@ -106,8 +109,8 @@ public class FileLoaderFl {
      * @return File
      */
     public File getArchFlClient(File client) {
-        HashMap<String,Integer> paramsDateOld = new HashMap<String, Integer>();
-        HashMap<String,Integer> paramsDateNew = new HashMap<String, Integer>();
+        HashMap<String,Integer> paramsDateOld = new HashMap<>();
+        HashMap<String,Integer> paramsDateNew = new HashMap<>();
         final String YEARS = "YEARS";
         final String MONTH = "MONTH";
         final String DAY = "DAY";
@@ -138,9 +141,7 @@ public class FileLoaderFl {
                                 file = fl;
                             }
                         }
-                    }catch (Exception e){
-
-                    }
+                    }catch (Exception ignored){}
 
                 }else {
                     try {
@@ -171,7 +172,7 @@ public class FileLoaderFl {
                         }else{
                             file = fl;
                         }
-                    }catch (Exception e){}
+                    }catch (Exception ignored){}
                 }
             }
         }

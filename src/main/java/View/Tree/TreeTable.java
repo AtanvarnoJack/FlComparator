@@ -10,13 +10,11 @@ import View.Dialogs.Dialogs;
 import View.Home.Home;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.image.Image;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -33,6 +31,7 @@ import java.util.Map.Entry;
  * Created by alco on 06/08/2015.
  * TreeTable contain all method of TreeTableDisplayView
  */
+@SuppressWarnings("javadoc")
 public class TreeTable {
     private final static String TITLE_FORMAT_IGNORE = "Formatage_Client";
     private final static String FICHIER_DE_LIAISON = "Fichier de Liaison";
@@ -43,10 +42,9 @@ public class TreeTable {
 
     /**
      * startStage
-     * @param primaryStage
      * @throws IOException
      */
-    protected void startStage(Stage primaryStage) throws IOException {
+    protected void startStage() throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("/TreeTable.fxml"));
         Scene scene = new Scene(parent);
 
@@ -55,7 +53,6 @@ public class TreeTable {
         Stage stage = new Stage();
         stage.setMinHeight(500);
         stage.setMinWidth(700);
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.getIcons().add(new Image(Home.getICON_Fl_COMPARATOR()));
         stage.setScene(scene);
         stage.showAndWait();
@@ -100,7 +97,7 @@ public class TreeTable {
      * @throws IOException
      */
     protected HashMap<Sheet, List<String>> getAllSheetAndTitle(File file ) throws IOException {
-        HashMap<Sheet, List<String>> newFl = new HashMap<Sheet, List<String>>();
+        HashMap<Sheet, List<String>> newFl = new HashMap<>();
         if (file!= null){
             ExcelReader excelReader = new ExcelReader();
 
@@ -120,7 +117,7 @@ public class TreeTable {
      * @return TreeItem<String>
      */
     protected TreeItem<String> geTreeItemForEntrySheetAndTitle(Entry<Sheet, List<String>> entry) {
-        TreeItem<String> childNodeSheet = new TreeItem<String>(entry.getKey().getSheetName());
+        TreeItem<String> childNodeSheet = new TreeItem<>(entry.getKey().getSheetName());
         List<String> titleList = entry.getValue();
         for (String title : titleList) {
             TreeItem<String> childNodeTitle = new TreeItem<>(entry.getKey().getSheetName()  + OpenHelperCheckedClient.getSeparator() + title);
@@ -134,7 +131,7 @@ public class TreeTable {
      * @return TreeTableColumn<String, String>
      */
     protected TreeTableColumn<String, String> getStringTreeTableColumn() {
-        final TreeTableColumn<String ,String> modelColumn = new TreeTableColumn<String ,String>(TITLE_TABLE_VIEW_REF);
+        final TreeTableColumn<String ,String> modelColumn = new TreeTableColumn<>(TITLE_TABLE_VIEW_REF);
         modelColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<String, String> p) ->
                 new ReadOnlyStringWrapper(p.getValue().getValue()));
         return modelColumn;
@@ -150,7 +147,7 @@ public class TreeTable {
      */
     protected TreeItem<String> getTreeRoot(TreeTable treeTable, File file) throws IllegalArgumentException, IOException {
         HashMap<Sheet, List<String>> sheetTitleList = treeTable.getAllSheetAndTitle(file);
-        final TreeItem<String> treeRoot = new TreeItem<String>(FICHIER_DE_LIAISON);
+        final TreeItem<String> treeRoot = new TreeItem<>(FICHIER_DE_LIAISON);
         if (sheetTitleList.size() != 0){
             for (Entry<Sheet, List<String>> entry : sheetTitleList.entrySet()) {
                 TreeItem<String> childNodeSheet = treeTable.geTreeItemForEntrySheetAndTitle(entry);
@@ -169,7 +166,7 @@ public class TreeTable {
      */
     protected TreeItem<String> getDataItemTreeTable() {
         StockAll stockAll = new StockAll();
-        HashMap<String, List<String>> sheetTitleList = null;
+        HashMap<String, List<String>> sheetTitleList;
         if (StockAll.listChampCompare != null){
             sheetTitleList = StockAll.listChampCompare;
         }else {
@@ -177,7 +174,7 @@ public class TreeTable {
             StockAll.listChampCompare = stockAll.loadConstChamps();
         }
 
-        TreeItem<String> treeRoot = new TreeItem<String>(SELECTED_TITLE);
+        TreeItem<String> treeRoot = new TreeItem<>(SELECTED_TITLE);
         for (Entry<String, List<String>> entry : sheetTitleList.entrySet()) {
             List<String> champList = entry.getValue();
             for (String champs : champList) {
@@ -194,7 +191,7 @@ public class TreeTable {
      * @return TreeTableColumn<String, String>
      */
     protected TreeTableColumn<String, String> getDataTreeTableColumn() {
-        final TreeTableColumn<String ,String> modelColumn = new TreeTableColumn<String ,String>(SELECTED_TITLE);
+        final TreeTableColumn<String ,String> modelColumn = new TreeTableColumn<>(SELECTED_TITLE);
         modelColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<String, String> p) ->
                 new ReadOnlyStringWrapper(p.getValue().getValue()));
         return modelColumn;

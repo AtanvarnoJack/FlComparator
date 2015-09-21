@@ -9,6 +9,7 @@ import java.util.List;
  * Created by alco on 04/08/2015.
  * Interface ExcelLoader is for have a possibility to change reader (actually Apache POI).
  */
+@SuppressWarnings("javadoc")
 public interface ExcelLoader {
     /**
      * getAllCompareValueFl

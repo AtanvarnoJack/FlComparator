@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  * Created by alco on 04/08/2015.
  * ExcelReader contain all method to read a Fl File
  */
+@SuppressWarnings("javadoc")
 public class ExcelReader {
     private final static String TITLE_FORMAT_IGNORE = "Nom de l'Onglet";
     private final static Integer TITLE_POSITION_IN_SHEET = 1;
@@ -27,8 +28,7 @@ public class ExcelReader {
      * @throws IOException
      */
     public Workbook getWorkbookByFilePath(String path) throws IOException {
-        Workbook wb = new XSSFWorkbook(new FileInputStream(path));
-        return wb;
+        return new XSSFWorkbook(new FileInputStream(path));
     }
 
     /**
@@ -37,7 +37,7 @@ public class ExcelReader {
      * @return List<String>
      */
     public List<String> getAllSheetName(Workbook wb){
-        List<String> listSheetName = new ArrayList<String>();
+        List<String> listSheetName = new ArrayList<>();
         for (int i = 0; i < wb.getNumberOfSheets(); i++) {
             listSheetName.add(wb.getSheetAt(i).getSheetName());
         }
@@ -50,7 +50,7 @@ public class ExcelReader {
      * @return List<Sheet>
      */
     public List<Sheet> getAllSheet(Workbook wb){
-        List<Sheet> listSheetName = new ArrayList<Sheet>();
+        List<Sheet> listSheetName = new ArrayList<>();
         for (int i = 0; i < wb.getNumberOfSheets(); i++) {
             listSheetName.add(wb.getSheetAt(i));
         }
@@ -65,9 +65,9 @@ public class ExcelReader {
      */
     public List<Sheet> getAllSheetDisplay(Workbook wb, String format) {
         Sheet sheet = wb.getSheet(format);
-        List<String> listTitleFirst = new ArrayList<String>();
-        List<String> listTitle = new ArrayList<String>();
-        List<Sheet> listSheet = new ArrayList<Sheet>();
+        List<String> listTitleFirst = new ArrayList<>();
+        List<String> listTitle = new ArrayList<>();
+        List<Sheet> listSheet = new ArrayList<>();
         boolean cellNotEmpty = true;
         int i = 0;
         while (cellNotEmpty) {
@@ -102,7 +102,7 @@ public class ExcelReader {
      * @return List<String>
      */
     public List<String> getAllTitleOfSheet(Sheet sheet){
-        List<String> listTitle = new ArrayList<String>();
+        List<String> listTitle = new ArrayList<>();
         boolean cellNotEmpty = true;
         Row titleRow = sheet.getRow(TITLE_POSITION_IN_SHEET);
         int i = 0;
@@ -145,7 +145,7 @@ public class ExcelReader {
      * @return List<String>
      */
     public List<String> getColumn(int column , Sheet sheet, int numberOfRow){
-        List<String> columnList = new ArrayList<String>();
+        List<String> columnList = new ArrayList<>();
         for (int i = 2; i < numberOfRow; i++) {
             columnList.add(sheet.getRow(i).getCell(column).toString().trim().toUpperCase());
         }
@@ -162,7 +162,7 @@ public class ExcelReader {
         int numberOfRow = 0;
         boolean bool = true;
         try{
-            while (bool == true) {
+            while (bool) {
                 try {
                     if(sheet.getRow(numberOfRow).getCell(0).toString().equals("")){
                         bool = false;

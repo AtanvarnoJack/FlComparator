@@ -30,6 +30,7 @@ import java.util.List;
  * Created by alco on 16/09/2015.
  * Exclude analytics
  */
+@SuppressWarnings("javadoc")
 public class Exclude {
     public static final String LIST_VIEW_SAMPLE = "ListViewSample";
     public static final String CLIENT_CHECKED = "Client Checked:";

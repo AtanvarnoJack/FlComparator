@@ -5,6 +5,7 @@ import org.tmatesoft.sqljet.core.SqlJetException;
 import org.tmatesoft.sqljet.core.table.SqlJetDb;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -13,6 +14,7 @@ import java.util.Map.Entry;
  * Created by alco on 07/08/2015.
  * GestionBDParams contain method for manage OpenHelper BDD Params
  */
+@SuppressWarnings("javadoc")
 public class GestionBDDParams {
 
     /**
@@ -109,9 +111,7 @@ public class GestionBDDParams {
     private List<String> undoConcatChamps(String concatChamps){
         List<String> champsList = new ArrayList<>();
         String[] arrayFound = concatChamps.split(":");
-        for (String champ : arrayFound) {
-            champsList.add(champ);
-        }
+        Collections.addAll(champsList, arrayFound);
         return champsList;
     }
 }

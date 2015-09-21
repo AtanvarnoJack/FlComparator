@@ -15,6 +15,7 @@ import View.Dialogs.Dialogs;
  * Created by alco on 05/08/2015.
  * StockAll is a static class for data with her method
  */
+@SuppressWarnings("javadoc")
 public class StockAll {
     private final static String TAG = "Hostname";
     private final static String PRINCIPAL = "PRINCIPAL";
@@ -29,13 +30,13 @@ public class StockAll {
      * @return HashMap<String, List<String>>
      */
     public HashMap<String, List<String>> loadConstChamps() {
-        HashMap<String, List<String>> listConstChamp = new HashMap<String, List<String>>();
-        if (this.listChampCompare == null) {
+        HashMap<String, List<String>> listConstChamp = new HashMap<>();
+        if (listChampCompare == null) {
             List<String> constChampsList = getListConst();
             listConstChamp.put(PRINCIPAL, constChampsList);
             return listConstChamp;
         } else {
-            return this.listChampCompare;
+            return listChampCompare;
         }
     }
 
@@ -44,7 +45,7 @@ public class StockAll {
      * @return List<String>
      */
     private List<String> getListConst() {
-        List<String> constChampsList = new ArrayList<String>();
+        List<String> constChampsList = new ArrayList<>();
         constChampsList.add(TAG);
         constChampsList.add("Organization_Outils Level 1_1");
         constChampsList.add("Organization_Outils Level 1_2");
@@ -69,10 +70,10 @@ public class StockAll {
      * @param value
      */
     public static void addListChampCompare(String key, String value) {
-        HashMap<String, List<String>> listChampCompareNew = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> listChampCompareNew = new HashMap<>();
         boolean existInList = false;
         for (Entry<String, List<String>> entry : listChampCompare.entrySet()) {
-            if(entry.getKey().toString().equals(key)){
+            if(entry.getKey().equals(key)){
                 existInList = true;
                 boolean alreadyInList = false;
                 List<String> listFound = entry.getValue();
@@ -104,9 +105,9 @@ public class StockAll {
      * @param value
      */
     public static void deleteOneOfListChampCompare(String key, String value) {
-        HashMap<String, List<String>> listChampCompareNew = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> listChampCompareNew = new HashMap<>();
         for (Entry<String, List<String>> entry : listChampCompare.entrySet()) {
-            if(entry.getKey().toString().equals(key)){
+            if(entry.getKey().equals(key)){
                 List<String> listNew = new ArrayList<>();
                 List<String> listFound = entry.getValue();
                 for (String champ : listFound) {

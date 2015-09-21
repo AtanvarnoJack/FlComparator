@@ -8,6 +8,7 @@ import org.tmatesoft.sqljet.core.table.SqlJetDb;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * Created by alco on 07/08/2015.
  * OpenHelperParams manage BDD Params
  */
+@SuppressWarnings("javadoc")
 public class OpenHelperParams {
     private final static String DB_REPOSITORIES = "Settings/";
     private final static String DB_NAME = "ParamsBaseFlComparator";
@@ -32,8 +34,7 @@ public class OpenHelperParams {
      */
     public static SqlJetDb getSqlJetDb() throws SqlJetException {
         dbFile = new File(DB_REPOSITORIES+DB_NAME);
-        SqlJetDb db = SqlJetDb.open(dbFile, true);
-        return db;
+        return SqlJetDb.open(dbFile, true);
     }
 
     /**
@@ -164,9 +165,7 @@ public class OpenHelperParams {
                 do {
                     List<String> champsList = new ArrayList<>();
                     String[] arrayFound = cursor.getString(TABLE_ROW_CHAMPS).split(":");
-                    for (String champ : arrayFound) {
-                        champsList.add(champ);
-                    }
+                    Collections.addAll(champsList, arrayFound);
                     allRecords.put(cursor.getString(TABLE_ROW_KEY),champsList);
                 } while(cursor.next());
             }

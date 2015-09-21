@@ -15,6 +15,7 @@ import java.util.List;
  * Created by alco on 04/08/2015.
  * ExcelLoaderApache mange reader class for read Fl file
  */
+@SuppressWarnings("javadoc")
 public class ExcelLoaderApache implements ExcelLoader {
 
     /**
@@ -31,7 +32,7 @@ public class ExcelLoaderApache implements ExcelLoader {
 
         Workbook wb = excelReader.getWorkbookByFilePath(file.getPath());
         HashMap<String, List<String>> constChampsList = stockAll.loadConstChamps();
-        HashMap<String, List<String>> outMap = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> outMap = new HashMap<>();
 
         for ( String sheetName : constChampsList.keySet() ) {
             Sheet sheet = wb.getSheet(sheetName);

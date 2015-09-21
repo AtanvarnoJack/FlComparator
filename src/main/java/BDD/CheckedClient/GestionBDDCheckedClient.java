@@ -11,7 +11,9 @@ import java.util.List;
 
 /**
  * Created by alco on 16/09/2015.
+ * GestionBDDCheckedClient
  */
+@SuppressWarnings("javadoc")
 public class GestionBDDCheckedClient {
 
     /**
@@ -51,8 +53,7 @@ public class GestionBDDCheckedClient {
     public String getDataByKey(String key) throws SqlJetException {
         OpenHelperCheckedClient openHelperCheckedClient = new OpenHelperCheckedClient();
         SqlJetDb db = OpenHelperCheckedClient.getSqlJetDb();
-        String recordsFound = openHelperCheckedClient.getRecords(db, key);
-        return recordsFound;
+        return openHelperCheckedClient.getRecords(db, key);
     }
 
     /***

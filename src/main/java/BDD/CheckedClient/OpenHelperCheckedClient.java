@@ -12,7 +12,9 @@ import java.util.List;
 
 /**
  * Created by alco on 16/09/2015.
+ * OpenHelperCheckedClient
  */
+@SuppressWarnings("javadoc")
 public class OpenHelperCheckedClient {
     private final static String SEPARATOR = ":";
     private final static String YES = "yes";
@@ -34,8 +36,7 @@ public class OpenHelperCheckedClient {
      */
     public static SqlJetDb getSqlJetDb() throws SqlJetException {
         dbFile = new File(DB_REPOSITORIES+DB_NAME);
-        SqlJetDb db = SqlJetDb.open(dbFile, true);
-        return db;
+        return SqlJetDb.open(dbFile, true);
     }
 
     /**

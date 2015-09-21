@@ -5,19 +5,15 @@ import BDD.Champs.GestionBDDParams;
 import BDD.CheckedClient.GestionBDDCheckedClient;
 import View.Dialogs.Dialogs;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.tmatesoft.sqljet.core.SqlJetException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,6 +21,7 @@ import java.util.List;
  * Created by alco on 27/07/2015.
  * MainView is a class who contain all background method of the view.
  */
+@SuppressWarnings("javadoc")
 public class Home {
     private final static String APP_TITLE = "Fl Equipment Comparator";
     private final static String ICON_Fl_COMPARATOR = "/img/IconComparator.png";
@@ -43,12 +40,9 @@ public class Home {
         stage.getIcons().add(new Image(ICON_Fl_COMPARATOR));
 
         Parent root = FXMLLoader.load(getClass().getResource(HOME_PAGE_FXML));
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent t) {
-                Platform.exit();
-                System.exit(0);
-            }
+        stage.setOnCloseRequest(t -> {
+            Platform.exit();
+            System.exit(0);
         });
         Scene scene = new Scene(root);
 
@@ -99,7 +93,7 @@ public class Home {
     private void loadChampCompare(Dialogs dialogs, StockAll stockAll) {
         GestionBDDParams gestionBDDParams = new GestionBDDParams();
         if(StockAll.listChampCompare == null){
-            HashMap<String, List<String>> recordsFound = null;
+            HashMap<String, List<String>> recordsFound;
             try {
                 recordsFound = gestionBDDParams.getAllData();
                 if (recordsFound.size() == 0){

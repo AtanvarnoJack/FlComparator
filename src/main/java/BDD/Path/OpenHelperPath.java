@@ -12,6 +12,7 @@ import java.io.File;
  * Created by alco on 07/08/2015.
  * OpenHelperPath manage BDD path
  */
+@SuppressWarnings("javadoc")
 public class OpenHelperPath {
     private final static String DB_REPOSITORIES = "Settings/";
     private final static String DB_NAME = "ParamsPathFlRef";
@@ -28,8 +29,7 @@ public class OpenHelperPath {
      */
     public static SqlJetDb getSqlJetDb() throws SqlJetException {
         dbFile = new File(DB_REPOSITORIES+DB_NAME);
-        SqlJetDb db = SqlJetDb.open(dbFile, true);
-        return db;
+        return SqlJetDb.open(dbFile, true);
     }
 
     /**

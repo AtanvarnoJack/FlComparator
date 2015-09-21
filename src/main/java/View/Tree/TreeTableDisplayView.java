@@ -24,7 +24,9 @@ import java.util.ResourceBundle;
 
 /**
  * Created by alco on 05/08/2015.
+ * TreeTableDisplayView
  */
+@SuppressWarnings("javadoc")
 public class TreeTableDisplayView extends Application implements Initializable {
     public static final String IMG_SAVE_DEG_PNG = "/img/saveDeg.png";
     public static final String IMG_UNDO_ARROW_DEG_PNG = "/img/undoArrowDeg.png";
@@ -51,7 +53,7 @@ public class TreeTableDisplayView extends Application implements Initializable {
     @Override
     public void start(Stage primaryStage) throws Exception {
         TreeTable treeTable = new TreeTable();
-        treeTable.startStage(primaryStage);
+        treeTable.startStage();
     }
 
     @Override
@@ -64,9 +66,7 @@ public class TreeTableDisplayView extends Application implements Initializable {
         }else {
             try{
                 refreshFlTableView(treeTable, file);
-            }catch (IllegalArgumentException IAE){
-                dialogs.dialogsBadPathRef();
-            } catch (IOException e) {
+            }catch (IllegalArgumentException | IOException IAE){
                 dialogs.dialogsBadPathRef();
             }
             refreshDataTableView(treeTable);
@@ -141,7 +141,7 @@ public class TreeTableDisplayView extends Application implements Initializable {
         });
     }
 
-    public void handleButtonTreePath(ActionEvent actionEvent) {
+    public void handleButtonTreePath() {
         Dialogs dialogs = new Dialogs();
         TreeTable treeTable = new TreeTable();
         try {
@@ -163,7 +163,7 @@ public class TreeTableDisplayView extends Application implements Initializable {
         }
     }
 
-    public void buttonHandleActionSaveTableTree(ActionEvent actionEvent) {
+    public void buttonHandleActionSaveTableTree() {
         Dialogs dialogs = new Dialogs();
         TreeTable treeTable = new TreeTable();
         try {
@@ -175,7 +175,7 @@ public class TreeTableDisplayView extends Application implements Initializable {
         stage.close();
     }
 
-    public void buttonHandleActionReInit(ActionEvent actionEvent) {
+    public void buttonHandleActionReInit() {
         Dialogs dialogs = new Dialogs();
         TreeTable treeTable = new TreeTable();
         try {

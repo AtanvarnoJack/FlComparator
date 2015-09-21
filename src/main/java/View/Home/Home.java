@@ -119,28 +119,40 @@ public class Home {
         return APP_TITLE;
     }
 
-    private final static String HELP_TEXT = "Fl Equipement Comparator:\n"+
-            "\n"+
-            "But: comparer des colonnes du FL.\n"+
-            "\n"+
-            "Settings:\n"+
-            "Permet de choisir les colonnes du FL à comparer.\n"+
-            "\t- Save : Sauvegarde la configuration choisie.\n"+
-            "\t- ReInit Réinitialise la configuration de base.\n"+
-            "\t- Path Réf : Permet de choisir un FL de référence pour la sélection des champs.\n"+
-            "\t- Le texte à droite de « Path Réf » indique le fichier choisi pour référence.\n"+
-            "\t- L’arbre de gauche permet de choisir les colonnes a ajouté a la liste de comparaison.\n"+
-            "\t\t- Double cliquez sur un label de la liste pour l’ajouté à la liste des comparaisons.\n"+
-            "\t- L’arbre de droite affiche la liste des champs à comparer. (Feuille : champs)\n"+
-            "\t\t- Double cliquez sur un label pour le supprimé de la liste.\n"+
-            "\n"+
-            "A la première ouverture de Settings le programme va vous demander de choisir un FL de Référence.\n" +
-            "Ex : Thot\\\\:\\ROC\\Fichier_Liaison_V4\\Fichier de Liaison Standard\\Fichier de Liaison V4_15.xlsm\n"+
-            "\n"+
-            "Open Repositories :\n"+
-            " Permet de choisir un répertoire pour lancé la comparaison des clients.\n"+
-            "Ce répertoire doit contenir la liste des répertoires client.\n"+
-            "(Ex : Thot\\\\:\\ROC\\Fichier_Liaison_V4\\Clients_ROC).\n";
+    private final static String HELP_TEXT = "Fl Equipement Comparator:\n" +
+            "\n" +
+            "Run: Fl_Equipement_Comparator.jar\n" +
+            "Need: java jdk 1.8 or jre 1.8\n" +
+            "\n" +
+            "But: comparer des colonnes du FL.\n" +
+            "\n" +
+            "Home:\n" +
+            "A la premiére ouverture de \"Home\" le programme va vous demander de choisir le dossier de tous les clients en production.\n" +
+            "\n" +
+            "\n" +
+            "Settings View:\n" +
+            "Permet de choisir les colonnes du FL à comparer.\n" +
+            "\t- Save : Sauvegarde la configuration choisie.\n" +
+            "\t- ReInit Réinitialise la configuration de base.\n" +
+            "\t- Exclude : Permet de choisir les clients à tester.\n" +
+            "\t- Path Réf : Permet de choisir un FL de référence pour la sélection des champs.\n" +
+            "\t- Le texte à droite de à Path \"Rèf\" indique le fichier choisi pour référence.\n" +
+            "\t- L'arbre de gauche permet de choisir les colonnes a ajoute a la liste de comparaison.\n" +
+            "\t\t- Double cliquez sur un label de la liste pour l'ajout à la liste des comparaisons.\n" +
+            "\t- L'arbre de droite affiche la liste des champs à comparer. (Feuille: champs)\n" +
+            "\t\t- Double cliquez sur un label pour le supprimé de la liste.\n" +
+            "\n" +
+            "A la premiére ouverture de \"Settings\" le programme va vous demander de choisir un FL de Référence.\n" +
+            "\n" +
+            "Open Repositories:\n" +
+            "Permet de choisir un répertoire pour lancer la comparaison des clients.\n" +
+            "Ce répertoire doit contenir la liste des répertoires client.\n" +
+            "\n" +
+            "Exclude View:\n" +
+            "Permet de choisir les clients à tester.\n" +
+            "\t- All Ok : Permet de selectionné tous les clients.\n" +
+            "\t- Save : Permet de sauvegarder les choix en base.\n" +
+            "\t- Close : fermer la fenêtre.\n";
 
     public static String getHelpText() {
         return HELP_TEXT;

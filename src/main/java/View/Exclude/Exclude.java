@@ -36,6 +36,7 @@ public class Exclude {
     public static final String CLIENT_CHECKED = "Client Checked:";
     public static final String IMG_REPOSITORY_DEG_PNG = "/img/repositoryDeg.png";
     public static final String IMG_ALL_OK_PNG = "/img/allOk.png";
+    public static final String IMG_ALL_NOK_PNG = "/img/allNok.png";
     public static final String IMG_SAVE_DEG_PNG = "/img/saveDeg.png";
     public static final String IMG_CLOSE_PNG = "/img/close.png";
     public static final String TEXTURE_CSS = "/texture.css";
@@ -160,12 +161,18 @@ public class Exclude {
         Button closeButton = new Button();
 
         Image pathImg = new Image(getClass().getResourceAsStream(IMG_REPOSITORY_DEG_PNG));
-        Image reInitImg = new Image(getClass().getResourceAsStream(IMG_ALL_OK_PNG));
+        Image reInitImgOk = new Image(getClass().getResourceAsStream(IMG_ALL_OK_PNG));
+        Image reInitImgNok = new Image(getClass().getResourceAsStream(IMG_ALL_NOK_PNG));
         Image saveImg = new Image(getClass().getResourceAsStream(IMG_SAVE_DEG_PNG));
         Image closeImg = new Image(getClass().getResourceAsStream(IMG_CLOSE_PNG));
 
         pathButton.setGraphic(new ImageView(pathImg));
-        reInitButton.setGraphic(new ImageView(reInitImg));
+        String[] client = clientList.get(0).split(OpenHelperCheckedClient.getSeparator());
+        if (client[1].equals( OpenHelperCheckedClient.getYes())){
+            reInitButton.setGraphic(new ImageView(reInitImgNok));
+        }else {
+            reInitButton.setGraphic(new ImageView(reInitImgOk));
+        }
         saveButton.setGraphic(new ImageView(saveImg));
         closeButton.setGraphic(new ImageView(closeImg));
 
@@ -179,7 +186,7 @@ public class Exclude {
         list.getStyleClass().add(LIST_VIEW_STYLECLASS);
 
         pathButton.setOnAction(e -> reLoadClient(list, clientList));
-        reInitButton.setOnAction(e -> reInit(list, clientList));
+        reInitButton.setOnAction(e -> reInit(list, clientList, reInitButton));
         saveButton.setOnAction(e -> save(stage));
         closeButton.setOnAction(e -> close(stage));
 
@@ -238,10 +245,13 @@ public class Exclude {
      * reInit method for pass all client at YES
      * @param list
      * @param clientList
+     * @param reInitButton
      */
-    private void reInit(ListView<String> list, List<String> clientList) {
+    private void reInit(ListView<String> list, List<String> clientList, Button reInitButton) {
         String[] client = clientList.get(0).split(OpenHelperCheckedClient.getSeparator());
         if (client[1].equals( OpenHelperCheckedClient.getYes())){
+            Image reInitImg = new Image(getClass().getResourceAsStream(IMG_ALL_OK_PNG));
+            reInitButton.setGraphic(new ImageView(reInitImg));
             String[] clientSplit;
             for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
                 clientSplit = StockAll.clientCheckedList.get(i).split(OpenHelperCheckedClient.getSeparator());
@@ -255,6 +265,8 @@ public class Exclude {
                 list.setItems(data);
             }
         }else {
+            Image reInitImg = new Image(getClass().getResourceAsStream(IMG_ALL_NOK_PNG));
+            reInitButton.setGraphic(new ImageView(reInitImg));
             String[] clientSplit;
             for (int i = 0; i < StockAll.clientCheckedList.size(); i++) {
                 clientSplit = StockAll.clientCheckedList.get(i).split(OpenHelperCheckedClient.getSeparator());
